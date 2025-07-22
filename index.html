@@ -26,16 +26,25 @@
       color: #222;
     }
     body.light-mode .project,
-    body.light-mode .skill-box {
+    body.light-mode .skill-box,
+    body.light-mode .timeline-content {
       background-color: #e2e2e2;
     }
     #particles-js {
       position: fixed;
       width: 100%;
       height: 100%;
+      background-color: #2b2b2b;
+      background-image: url("");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 50% 50%;
       z-index: -1;
       top: 0;
       left: 0;
+    }
+    body.light-mode #particles-js {
+      background-color: #f5f5f5;
     }
     .toggle-button {
       position: fixed;
@@ -88,11 +97,12 @@
       display: flex;
       align-items: center;
     }
-    /* Icon styling for section headers */
+    /* Fixed icon spacing */
     h2 i {
       margin-right: 12px;
       color: #58a6ff;
       font-size: 1.2em;
+      width: auto;
     }
     /* Light mode adjustment */
     body.light-mode h2 i {
@@ -331,9 +341,6 @@
       font-weight: bold;
       color: #58a6ff;
       margin-bottom: 0.5rem;
-    }
-    body.light-mode .timeline-content {
-      background-color: #e2e2e2;
     }
 
     /* Font Awesome Icons */
