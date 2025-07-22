@@ -25,7 +25,10 @@
       background-color: #f5f5f5;
       color: #222;
     }
-    body.light-mode .project { background-color: #e2e2e2; }
+    body.light-mode .project,
+    body.light-mode .skill-box {
+      background-color: #e2e2e2;
+    }
     #particles-js {
       position: fixed;
       width: 100%;
@@ -82,6 +85,18 @@
       margin-bottom: 2rem;
       color: #58a6ff;
       font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+    }
+    /* Icon styling for section headers */
+    h2 i {
+      margin-right: 12px;
+      color: #58a6ff;
+      font-size: 1.2em;
+    }
+    /* Light mode adjustment */
+    body.light-mode h2 i {
+      color: #1e90ff;
     }
     ul { list-style: none; padding: 0; }
     li { margin-bottom: 1.25rem; line-height: 1.6; }
@@ -257,6 +272,70 @@
       flex-wrap: wrap;
     }
 
+    /* Timeline Styles */
+    .timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 4px;
+      background-color: #58a6ff;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -2px;
+      border-radius: 2px;
+    }
+    .timeline-item {
+      padding: 10px 40px;
+      position: relative;
+      width: 50%;
+      box-sizing: border-box;
+    }
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #58a6ff;
+      border-radius: 50%;
+      top: 15px;
+      z-index: 1;
+    }
+    .left {
+      left: 0;
+    }
+    .right {
+      left: 50%;
+    }
+    .left::after {
+      right: -10px;
+    }
+    .right::after {
+      left: -10px;
+    }
+    .timeline-content {
+      padding: 20px;
+      background-color: #1a1a1a;
+      border-radius: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .timeline-content:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    .timeline-date {
+      font-weight: bold;
+      color: #58a6ff;
+      margin-bottom: 0.5rem;
+    }
+    body.light-mode .timeline-content {
+      background-color: #e2e2e2;
+    }
+
     /* Font Awesome Icons */
     .fas, .fab {
       width: 20px;
@@ -300,6 +379,24 @@
       .project-links .button {
         width: 100%;
       }
+      /* Timeline mobile adjustments */
+      .timeline::after {
+        left: 31px;
+      }
+      .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+      }
+      .timeline-item::after {
+        left: 21px;
+      }
+      .left::after, .right::after {
+        left: 21px;
+      }
+      .right {
+        left: 0%;
+      }
     }
   </style>
 </head>
@@ -327,7 +424,7 @@
   <img src="banner.jpg" alt="Banner" class="hero-image" id="top" loading="lazy" />
 
   <section id="education" data-aos="fade-up">
-    <h2>Education</h2>
+    <h2><i class="fas fa-graduation-cap"></i> Education</h2>
     <ul>
       <li><strong>Bachelor of Science - Information Technology</strong><br>North-West University, 2022 – 2025</li>
       <li><strong>High School</strong><br>Leeuwenhof Akademie, 2017 – 2021</li>
@@ -335,7 +432,7 @@
   </section>
 
   <section id="skills" data-aos="fade-up">
-    <h2>Skills</h2>
+    <h2><i class="fas fa-code"></i> Skills</h2>
     <div class="skills-container">
       <!-- Box 1 -->
       <div class="skill-box">
@@ -371,7 +468,7 @@
   </section>
 
   <section id="strengths" data-aos="fade-up">
-    <h2>Strengths</h2>
+    <h2><i class="fas fa-star"></i> Strengths</h2>
     <ul>
       <li><strong>Adaptability:</strong> Quickly adjusts to new tools and environments.</li>
       <li><strong>Problem-Solving:</strong> Resourceful and curious in tackling technical challenges.</li>
@@ -382,7 +479,7 @@
   </section>
 
   <section id="projects" data-aos="fade-up">
-    <h2>Projects</h2>
+    <h2><i class="fas fa-project-diagram"></i> Projects</h2>
     <div class="project">
       <h3><i class="fas fa-comments"></i> Real-Time Chat App</h3>
       <p>A full-stack messaging application featuring:</p>
@@ -416,23 +513,44 @@
   </section>
 
   <section id="experience" data-aos="fade-up">
-    <h2>Experience</h2>
-    <ul>
-      <li><strong>Part-time Teller</strong> – Ackermans Pharmacy (Jan–Feb 2023)<br>Worked full-day and night shifts; provided customer service and support.</li>
-      <li><strong>Pharmacy Assistant</strong> – Ackermans Pharmacy (Nov–Dec 2022)<br>Assisted with relocation and organization of stock; received and sorted shipments.</li>
-      <li><strong>Data Entry Clerk</strong> – Premium Ideas (Dec 2022–Jan 2023)<br>Helped transition to a new system ahead of schedule with a small team.</li>
-    </ul>
+    <h2><i class="fas fa-briefcase"></i> Experience</h2>
+    <div class="timeline">
+      <div class="timeline-item left">
+        <div class="timeline-content">
+          <div class="timeline-date">Jan–Feb 2023</div>
+          <h3>Ackermans Pharmacy</h3>
+          <p><strong>Part-time Teller</strong></p>
+          <p>Worked full-day and night shifts; provided customer service and support.</p>
+        </div>
+      </div>
+      <div class="timeline-item right">
+        <div class="timeline-content">
+          <div class="timeline-date">Nov–Dec 2022</div>
+          <h3>Ackermans Pharmacy</h3>
+          <p><strong>Pharmacy Assistant</strong></p>
+          <p>Assisted with relocation and organization of stock; received and sorted shipments.</p>
+        </div>
+      </div>
+      <div class="timeline-item left">
+        <div class="timeline-content">
+          <div class="timeline-date">Dec 2022–Jan 2023</div>
+          <h3>Premium Ideas</h3>
+          <p><strong>Data Entry Clerk</strong></p>
+          <p>Helped transition to a new system ahead of schedule with a small team.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section id="training" data-aos="fade-up">
-    <h2>Training & Courses</h2>
+    <h2><i class="fas fa-certificate"></i> Training & Courses</h2>
     <ul>
       <li><strong>Meta Front-End Developer Professional Certificate</strong><br>Coursera / Meta – 2025</li>
     </ul>
   </section>
 
   <section id="contact" data-aos="fade-up">
-    <h2>Contact</h2>
+    <h2><i class="fas fa-envelope"></i> Contact</h2>
     <p>Reach out to me through the platforms below:</p>
     <div class="social">
       <a href="mailto:willem.smith222@gmail.com">Email</a>
