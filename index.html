@@ -145,52 +145,48 @@
       transition: all 0.3s ease;
     }
 
-    /* Mobile Styles */
-    @media (max-width: 768px) {
-      nav {
-        left: -100%;
-        top: 0;
-        width: 70%;
-        height: 100vh;
-        flex-direction: column;
-        justify-content: center;
-        gap: 2rem;
-        transition: left 0.3s ease;
-      }
+  /* ===== Mobile Styles ===== */
+@media (max-width: 768px) {
+  nav {
+    left: -100%;
+    top: 0;
+    width: 70%;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    transition: left 0.3s ease;
+  }
 
-      nav.active {
-        left: 0;
-      }
+  nav.active {
+    left: 0;
+  }
 
-      .hamburger {
-        display: flex;
-      }
+  .hamburger {
+    display: flex;
+    top: 20px;
+    right: 20px;
+    width: 25px;
+    height: 20px;
+  }
 
-      .hamburger.active .line:nth-child(1) {
-        transform: translateY(11px) rotate(45deg);
-      }
+  .toggle-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+    z-index: 1003;
+  }
 
-      .hamburger.active .line:nth-child(2) {
-        opacity: 0;
-      }
+  section {
+    padding: 2rem 1rem;
+  }
 
-      .hamburger.active .line:nth-child(3) {
-        transform: translateY(-11px) rotate(-45deg);
-      }
-
-      .toggle-button {
-        top: 15px;
-        left: 15px;
-      }
-
-      section {
-        padding: 2rem 1rem;
-      }
-
-      .hero-image {
-        margin-top: 0;
-      }
-    }
+  .hero-image {
+    margin-top: 0;
+  }
+}
   </style>
 </head>
 <body>
