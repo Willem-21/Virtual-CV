@@ -6,6 +6,8 @@
   <title>Willem Smith | Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <!-- Font Awesome for icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -64,7 +66,7 @@
       width: 100%;
       height: auto;
       display: block;
-      margin-top: 70px; /* Increased space for buttons */
+      margin-top: 70px;
     }
     section {
       padding: 4rem 2rem;
@@ -85,8 +87,19 @@
       padding: 1.5rem;
       margin-bottom: 2rem;
       border-radius: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
-    .project h3 { margin-top: 0; color: #58a6ff; }
+    .project:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    .project h3 { 
+      margin-top: 0; 
+      color: #58a6ff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
     .social {
       text-align: center;
       margin: 3rem 0;
@@ -109,8 +122,18 @@
       font-weight: bold;
       border-radius: 5px;
       transition: background-color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      justify-content: center;
     }
     .button:hover { background-color: #1e90ff; }
+    .button.demo-button {
+      background-color: #2ecc71;
+    }
+    .button.demo-button:hover {
+      background-color: #27ae60;
+    }
     .back-to-top {
       position: fixed;
       bottom: 20px;
@@ -125,7 +148,7 @@
       display: none;
     }
 
-    /* Hamburger Menu Styles */
+    /* Hamburger Menu */
     .hamburger {
       position: fixed;
       top: 15px;
@@ -154,6 +177,89 @@
       transform: translateY(-11px) rotate(-45deg);
     }
 
+    /* Skills Boxes */
+    .skills-container {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .skill-box {
+      background: #1a1a1a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      flex: 1;
+      min-width: 250px;
+      transition: transform 0.3s;
+    }
+    .skill-box:hover {
+      transform: translateY(-5px);
+    }
+    .skill-box h3 {
+      color: #58a6ff;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .skill-box li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Project Demo Styles */
+    .project-features {
+      margin: 1rem 0 1.5rem;
+      padding-left: 1.5rem;
+    }
+    .project-features li {
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .demo-container {
+      margin: 2rem 0;
+    }
+    .demo-frame-container {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      border: 1px solid #58a6ff;
+    }
+    .demo-frame {
+      width: 100%;
+      height: 400px;
+      border: none;
+      display: block;
+      background: #1a1a1a;
+    }
+    .demo-overlay {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.7);
+      color: #58a6ff;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    .project-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    /* Font Awesome Icons */
+    .fas, .fab {
+      width: 20px;
+      text-align: center;
+    }
+
     /* Mobile Styles */
     @media (max-width: 768px) {
       .hamburger {
@@ -179,6 +285,18 @@
         padding: 0.3rem 0.6rem;
         font-size: 0.8rem;
       }
+      .skills-container {
+        flex-direction: column;
+      }
+      .demo-frame {
+        height: 300px;
+      }
+      .project-links {
+        flex-direction: column;
+      }
+      .project-links .button {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -203,7 +321,7 @@
   </div>
 
   <a href="#top" class="back-to-top" id="backToTop">Top</a>
-  <img src="banner.jpg" alt="Banner" class="hero-image" id="top" />
+  <img src="banner.jpg" alt="Banner" class="hero-image" id="top" loading="lazy" />
 
   <section id="education" data-aos="fade-up">
     <h2>Education</h2>
@@ -215,11 +333,38 @@
 
   <section id="skills" data-aos="fade-up">
     <h2>Skills</h2>
-    <ul>
-      <li>JavaScript, HTML, CSS, React.js, Node.js</li>
-      <li>SQL, MySQL, GitHub, Git</li>
-      <li>Object-Oriented Programming, Microsoft Office</li>
-    </ul>
+    <div class="skills-container">
+      <!-- Box 1 -->
+      <div class="skill-box">
+        <h3><i class="fas fa-laptop-code"></i> Front-End</h3>
+        <ul>
+          <li><i class="fab fa-js"></i> JavaScript</li>
+          <li><i class="fab fa-react"></i> React</li>
+          <li><i class="fab fa-html5"></i> HTML5</li>
+          <li><i class="fab fa-css3-alt"></i> CSS3</li>
+        </ul>
+      </div>
+      
+      <!-- Box 2 -->
+      <div class="skill-box">
+        <h3><i class="fas fa-server"></i> Back-End</h3>
+        <ul>
+          <li><i class="fab fa-node-js"></i> Node.js</li>
+          <li><i class="fas fa-database"></i> SQL/MySQL</li>
+          <li><i class="fas fa-bolt"></i> Socket.io</li>
+        </ul>
+      </div>
+      
+      <!-- Box 3 -->
+      <div class="skill-box">
+        <h3><i class="fas fa-tools"></i> Tools</h3>
+        <ul>
+          <li><i class="fab fa-git-alt"></i> Git</li>
+          <li><i class="fab fa-github"></i> GitHub</li>
+          <li><i class="fas fa-terminal"></i> CLI</li>
+        </ul>
+      </div>
+    </div>
   </section>
 
   <section id="strengths" data-aos="fade-up">
@@ -236,9 +381,34 @@
   <section id="projects" data-aos="fade-up">
     <h2>Projects</h2>
     <div class="project">
-      <h3>Real-Time Chat App</h3>
-      <p>A real-time messaging app built using Node.js and Socket.io. It supports group and private messages with a modern UI.</p>
-      <a href="https://github.com/Willem-21/Group27-App" class="button" target="_blank">View on GitHub</a>
+      <h3><i class="fas fa-comments"></i> Real-Time Chat App</h3>
+      <p>A full-stack messaging application featuring:</p>
+      <ul class="project-features">
+        <li><i class="fas fa-check-circle"></i> Group and private messaging</li>
+        <li><i class="fas fa-check-circle"></i> Socket.io real-time communication</li>
+        <li><i class="fas fa-check-circle"></i> Responsive design</li>
+      </ul>
+      
+      <!-- Demo Container -->
+      <div class="demo-container">
+        <div class="demo-frame-container">
+          <iframe src="https://group27-app-final.onrender.com" 
+                  title="Live Chat App Demo"
+                  loading="lazy"
+                  allow="camera; microphone" 
+                  class="demo-frame"></iframe>
+          <div class="demo-overlay">Live Demo</div>
+        </div>
+        
+        <div class="project-links">
+          <a href="https://github.com/Willem-21/Group27-App" class="button" target="_blank">
+            <i class="fab fa-github"></i> Source Code
+          </a>
+          <a href="https://group27-app-final.onrender.com" class="button demo-button" target="_blank">
+            <i class="fas fa-external-link-alt"></i> Open Fullscreen
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -267,7 +437,9 @@
       <a href="https://github.com/Willem-21" target="_blank">GitHub</a>
     </div>
     <div style="text-align: center; margin-top: 1.5rem;">
-      <a href="https://github.com/Willem-21/Virtual-CV/raw/main/Willem_Smith_Resume.pdf" class="button" download="Willem_Smith_Resume.pdf">Download CV</a>
+      <a href="https://github.com/Willem-21/Virtual-CV/raw/main/Willem_Smith_Resume.pdf" class="button" download="Willem_Smith_Resume.pdf">
+        <i class="fas fa-download"></i> Download CV
+      </a>
     </div>
   </section>
 
