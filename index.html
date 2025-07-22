@@ -126,6 +126,31 @@
       z-index: 1001;
       display: none;
     }
+    @media (max-width: 768px) {
+    nav {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 0.5rem;
+    }
+    section {
+      padding: 2rem 1rem;
+    }
+    .hero-image {
+      margin-top: 50px;
+    }
+    .button {
+      padding: 1rem 2rem;
+    }
+    .project {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    section {
+      max-width: 95%;
+    }
+  }
   </style>
 </head>
 <body>
