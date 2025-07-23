@@ -659,11 +659,18 @@
     <h2><i class="fas fa-envelope"></i> Contact</h2>
     <p>Reach out to me through the platforms below:</p>
     <div class="social">
-      <a href="mailto:willem.smit222@gmail.com?subject=Portfolio%20Inquiry&body=Hello%20Willem,%0A%0A"
-         onclick="if(window.navigator&&!navigator.userAgent.match(/Mobile|Android|iPhone/i)){window.open('https://mail.google.com/mail/?view=cm&fs=1&to=willem.smit222@gmail.com&su=Portfolio Inquiry&body=Hello Willem,','_blank');return false;}"
-         class="email-link">
-      <i class="fas fa-envelope"></i> willem.smit222@gmail.com
-    </a>
+      <a href="#" 
+   onclick="
+     window.open('https://mail.google.com/mail/?view=cm&fs=1&to=willem.smit222@gmail.com&su=Portfolio Inquiry&body=Hello Willem,', '_blank');
+    
+     setTimeout(function(){
+       window.location.href = 'mailto:willem.smit222@gmail.com?subject=Portfolio Inquiry&body=Hello Willem,';
+     }, 200);
+     
+     return false;"
+   class="email-link">
+   <i class="fas fa-envelope"></i> willem.smit222@gmail.com
+</a>
       <a href="https://linkedin.com/in/willem-s-smith" target="_blank">LinkedIn</a>
       <a href="https://github.com/Willem-21" target="_blank">GitHub</a>
     </div>
