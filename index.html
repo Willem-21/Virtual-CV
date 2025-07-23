@@ -659,18 +659,26 @@
     <h2><i class="fas fa-envelope"></i> Contact</h2>
     <p>Reach out to me through the platforms below:</p>
     <div class="social">
-      <a href="#" 
-   onclick="
-     window.open('https://mail.google.com/mail/?view=cm&fs=1&to=willem.smit222@gmail.com&su=Portfolio Inquiry&body=Hello Willem,', '_blank');
-    
-     setTimeout(function(){
-       window.location.href = 'mailto:willem.smit222@gmail.com?subject=Portfolio Inquiry&body=Hello Willem,';
-     }, 200);
-     
-     return false;"
-   class="email-link">
-   <i class="fas fa-envelope"></i> willem.smit222@gmail.com
+      <a href="#" id="email-link" class="email-link">
+  <i class="fas fa-envelope"></i> willem.smit222@gmail.com
 </a>
+
+<script>
+  document.getElementById('email-link').addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    const gmailWindow = window.open(
+      'https://mail.google.com/mail/?view=cm&fs=1&to=willem.smit222@gmail.com&su=Portfolio%20Inquiry&body=Hello%20Willem,',
+      '_blank'
+    );
+    
+    setTimeout(() => {
+      if (!gmailWindow || gmailWindow.closed || gmailWindow.innerHeight === 0) {
+        window.location.href = 'mailto:willem.smit222@gmail.com?subject=Portfolio%20Inquiry&body=Hello%20Willem,';
+      }
+    }, 100);
+  });
+</script>
       <a href="https://linkedin.com/in/willem-s-smith" target="_blank">LinkedIn</a>
       <a href="https://github.com/Willem-21" target="_blank">GitHub</a>
     </div>
