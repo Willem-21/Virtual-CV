@@ -16,3 +16,9 @@
 - Frontend: HTML, CSS, React
 - Backend: Node.js
 - Tools: Github, VS Code
+
+## Setup  
+```bash
+git clone https://github.com/Willem-21/Virtual-CV.git
+npm install
+npm start
