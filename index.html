@@ -3,13 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta https-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta https-equiv="Pragma" content="no-cache">
-  <meta https-equiv="Expires" content="0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta name="description" content="Willem Smith — BSc IT Graduate from North-West University. Full-stack developer skilled in Python, JavaScript, React, Next.js, and modern frameworks. Based in Johannesburg, South Africa.">
+  <meta name="keywords" content="Willem Smith, Full-Stack Developer, BSc IT, NWU, Portfolio, Web Developer, South Africa, React, Next.js, Python, JavaScript">
+  <meta name="author" content="Willem Smith">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Willem Smith | Full-Stack Developer Portfolio">
+  <meta property="og:description" content="BSc IT Graduate from North-West University with hands-on experience in full-stack web development. View my projects, skills, and experience.">
+  <meta property="og:image" content="https://willemsmith.co.za/Thumbnail.jpg">
+  <meta property="og:url" content="https://willemsmith.co.za">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Willem Smith Portfolio">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Willem Smith | Full-Stack Developer Portfolio">
+  <meta name="twitter:description" content="BSc IT Graduate & Full-Stack Developer based in Johannesburg, South Africa. View my projects and experience.">
+  <meta name="twitter:image" content="https://willemsmith.co.za/Thumbnail.jpg">
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>WS</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2358a6ff'/%3E%3Ctext x='50' y='68' font-family='Arial,sans-serif' font-size='50' font-weight='bold' fill='white' text-anchor='middle'%3EWS%3C/text%3E%3C/svg%3E">
   <title>Willem Smith | Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-  <!-- Font Awesome for icons -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
@@ -30,7 +47,37 @@
     body.light-mode .timeline-content {
       background-color: #e2e2e2;
     }
-    
+
+    /* Preloader */
+    .preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .preloader-spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(88, 166, 255, 0.2);
+      border-top: 4px solid #58a6ff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
     /* Enhanced Particles Container */
     #particles-js {
       position: fixed;
@@ -45,11 +92,10 @@
     body.light-mode #particles-js {
       background-color: #f0f0f0 !important;
     }
-    /* Brighter particles in light mode */
     body.light-mode .particles-js-canvas-el {
       filter: brightness(0.7) contrast(1.4) !important;
     }
-    
+
     .toggle-button {
       position: fixed;
       top: 15px;
@@ -81,12 +127,60 @@
       font-weight: bold;
     }
     nav a:hover { color: #1e90ff; }
+
+    /* Typed text on hero */
+    .hero-overlay {
+      position: relative;
+    }
+    .typed-container {
+      text-align: center;
+      padding: 1.5rem 2rem;
+      background: linear-gradient(180deg, rgba(26,26,26,0.7) 0%, rgba(26,26,26,0) 100%);
+      margin-top: -4rem;
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    body.light-mode .typed-container {
+      background: linear-gradient(180deg, rgba(245,245,245,0.7) 0%, rgba(245,245,245,0) 100%);
+    }
+    .typed-text {
+      font-size: 1.1rem;
+      color: #58a6ff;
+      font-weight: 500;
+      min-height: 1.8rem;
+    }
+    .typed-cursor {
+      color: #58a6ff;
+      animation: blink 0.7s infinite;
+    }
+    .typed-cursor.done {
+      animation: blink 0.7s 3 forwards;
+      opacity: 0;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
     .hero-image {
       width: 100%;
       height: auto;
       display: block;
       margin-top: 70px;
     }
+
+    /* Section dividers */
+    .section-divider {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #58a6ff33, #58a6ff66, #58a6ff33, transparent);
+    }
+
     section {
       padding: 4rem 2rem;
       max-width: 900px;
@@ -113,7 +207,6 @@
       justify-content: center;
       transform: translateY(-2px);
     }
-    /* Light mode adjustment */
     body.light-mode h2 i {
       color: #1e90ff;
     }
@@ -130,8 +223,8 @@
       transform: translateY(-7px);
       box-shadow: 0 15px 25px rgba(0,0,0,0.2);
     }
-    .project h3 { 
-      margin-top: 0; 
+    .project h3 {
+      margin-top: 0;
       color: #58a6ff;
       display: flex;
       align-items: center;
@@ -360,6 +453,7 @@
       background-color: #1a1a1a;
       border-radius: 10px;
       transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
     }
     .timeline-content:hover {
       transform: translateY(-5px);
@@ -371,10 +465,82 @@
       margin-bottom: 0.5rem;
     }
 
+    /* Expandable experience details */
+    .timeline-summary {
+      margin: 0;
+    }
+    .timeline-expand-hint {
+      font-size: 0.8rem;
+      color: #58a6ff;
+      margin-top: 0.5rem;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+    .timeline-content:hover .timeline-expand-hint {
+      opacity: 1;
+    }
+    .timeline-details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, margin-top 0.3s ease;
+      margin-top: 0;
+    }
+    .timeline-details.expanded {
+      max-height: 500px;
+      margin-top: 1rem;
+    }
+    .timeline-details ul {
+      padding-left: 1.2rem;
+      list-style: disc;
+    }
+    .timeline-details li {
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .timeline-location {
+      font-size: 0.85rem;
+      color: #999;
+      margin-top: 0.3rem;
+    }
+
     /* Font Awesome Icons */
     .fas, .fab {
       width: 20px;
       text-align: center;
+    }
+
+    /* Footer */
+    footer {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 2rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    footer .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    footer .footer-links a {
+      color: #58a6ff;
+      text-decoration: none;
+      font-size: 1.3rem;
+      transition: color 0.3s, transform 0.3s;
+      display: inline-block;
+    }
+    footer .footer-links a:hover {
+      color: #1e90ff;
+      transform: translateY(-3px);
+    }
+    footer p {
+      color: #888;
+      font-size: 0.85rem;
+      margin: 0;
+    }
+    body.light-mode footer {
+      background-color: rgba(0, 0, 0, 0.08);
     }
 
     /* Mobile Styles */
@@ -434,14 +600,22 @@
       }
       /* Adjusted icon spacing for mobile */
       h2 i {
-        margin-right: 60px !important; /* Increased from 15px to 60px */
+        margin-right: 60px !important;
         font-size: 1.5em !important;
         min-width: 35px !important;
+      }
+      .typed-text {
+        font-size: 1rem;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-spinner"></div>
+  </div>
+
   <div id="particles-js"></div>
   <button class="toggle-button" onclick="toggleMode()">Toggle Theme</button>
   <nav>
@@ -451,9 +625,9 @@
     <a href="#strengths">Strengths</a>
     <a href="#projects">Projects</a>
     <a href="#experience">Experience</a>
-<a href="#contact">Contact</a>
+    <a href="#contact">Contact</a>
   </nav>
-  
+
   <!-- Hamburger Menu -->
   <div class="hamburger" onclick="toggleMenu()">
     <div class="line"></div>
@@ -464,12 +638,21 @@
   <a href="#top" class="back-to-top" id="backToTop">Top</a>
   <img src="banner.jpg" alt="Banner" class="hero-image" id="top" loading="lazy" />
 
+  <!-- Typed intro text -->
+  <div class="typed-container">
+    <span class="typed-text" id="typedText"></span><span class="typed-cursor">|</span>
+  </div>
+
+  <div class="section-divider"></div>
+
   <section id="about" data-aos="fade-up">
     <h2><i class="fas fa-user"></i> About</h2>
     <p>I am a results-driven BSc IT Graduate from North-West University with hands-on experience in full-stack web application development using Python, JavaScript and modern frameworks. During my role as a Junior Developer at Tecwise, I actively contributed to the development and maintenance of a multi-tenant dealer portal built on the Frappe framework, gaining valuable experience in backend logic, UI refinement and collaborative Agile software development.</p>
     <p>I am passionate about designing and building efficient, scalable and user-centered applications that deliver real-world impact. I take pride in crafting software that is both technically sound and intuitively designed.</p>
     <p>With a solid foundation in full-stack principles and a growing interest in cloud-native and automation technologies, I am eager to contribute to a forward-thinking development team. My goal is to continue expanding my technical depth while creating innovative digital solutions that help shape South Africa's evolving tech landscape.</p>
   </section>
+
+  <div class="section-divider"></div>
 
   <section id="education" data-aos="fade-up">
     <h2><i class="fas fa-graduation-cap"></i> Education</h2>
@@ -478,6 +661,8 @@
       <li><strong>High School</strong><br>Leeuwenhof Akademie, 2017 – 2021</li>
     </ul>
   </section>
+
+  <div class="section-divider"></div>
 
   <section id="skills" data-aos="fade-up">
     <h2><i class="fas fa-code"></i> Skills</h2>
@@ -509,7 +694,7 @@
           </li>
         </ul>
       </div>
-      
+
       <!-- Box 2 -->
       <div class="skill-box">
         <h3><i class="fas fa-server"></i> Back-End</h3>
@@ -601,7 +786,9 @@
         </ul>
       </div>
     </div>
-</section>
+  </section>
+
+  <div class="section-divider"></div>
 
   <section id="strengths" data-aos="fade-up">
     <h2><i class="fas fa-star"></i> Strengths</h2>
@@ -614,8 +801,36 @@
     </ul>
   </section>
 
+  <div class="section-divider"></div>
+
   <section id="projects" data-aos="fade-up">
     <h2><i class="fas fa-project-diagram"></i> Projects</h2>
+    <div class="project">
+      <h3><i class="fas fa-industry"></i> Gravity Plastics — Client Website</h3>
+      <p>A full commercial website built for a South African plastics manufacturer, developed with Next.js and React:</p>
+      <ul class="project-features">
+        <li><i class="fas fa-check-circle"></i> 9-page responsive site with product catalogue (6 ranges, 22 variants)</li>
+        <li><i class="fas fa-check-circle"></i> Interactive 3D WebGL fluid simulation, animations & parallax effects</li>
+        <li><i class="fas fa-check-circle"></i> Integrated contact & quote request forms with email delivery</li>
+        <li><i class="fas fa-check-circle"></i> Full SEO, security headers, and enterprise-grade hardening</li>
+        <li><i class="fas fa-check-circle"></i> Built with Next.js 16, React 19, TypeScript, Tailwind CSS, Three.js & GSAP</li>
+      </ul>
+
+      <!-- Preview Container -->
+      <div class="demo-container">
+        <a href="https://gravity-plastics.co.za" target="_blank" class="demo-frame-container" style="display:block; cursor:pointer;">
+          <img src="gravity-plastics-preview.jpg" alt="Gravity Plastics Website Preview" loading="lazy" style="width:100%; height:auto; display:block; border-radius:8px;">
+          <div class="demo-overlay">Live Website</div>
+        </a>
+
+        <div class="project-links">
+          <a href="https://gravity-plastics.co.za" class="button demo-button" target="_blank">
+            <i class="fas fa-external-link-alt"></i> Visit Website
+          </a>
+        </div>
+      </div>
+    </div>
+
     <div class="project">
       <h3><i class="fas fa-comments"></i> Real-Time Chat App</h3>
       <p>A full-stack messaging application featuring:</p>
@@ -624,18 +839,18 @@
         <li><i class="fas fa-check-circle"></i> Socket.io real-time communication</li>
         <li><i class="fas fa-check-circle"></i> Responsive design</li>
       </ul>
-      
+
       <!-- Demo Container -->
       <div class="demo-container">
         <div class="demo-frame-container">
-          <iframe src="https://group27-app-final.onrender.com" 
+          <iframe src="https://group27-app-final.onrender.com"
                   title="Live Chat App Demo"
                   loading="lazy"
-                  allow="camera; microphone" 
+                  allow="camera; microphone"
                   class="demo-frame"></iframe>
           <div class="demo-overlay">Live Demo</div>
         </div>
-        
+
         <div class="project-links">
           <a href="https://github.com/Willem-21/Group27-App" class="button" target="_blank">
             <i class="fab fa-github"></i> Source Code
@@ -648,51 +863,88 @@
     </div>
   </section>
 
+  <div class="section-divider"></div>
+
  <section id="experience" data-aos="fade-up">
   <h2><i class="fas fa-briefcase"></i> Experience</h2>
   <div class="timeline">
-    <!-- Most recent (Aug–Oct 2025) -->
+    <!-- Most recent (Aug-Oct 2025) -->
     <div class="timeline-item left">
-      <div class="timeline-content">
+      <div class="timeline-content" onclick="toggleDetails(this)">
         <div class="timeline-date">Aug–Oct 2025</div>
         <h3>Tecwise</h3>
         <p><strong>Junior Developer (Part-Time)</strong></p>
-        <p>Contributed to the development of a multi-tenant Electronic Dealer Portal built on a Frappe-based ERPNext system. Worked with Python, JavaScript, and HTML to deliver stable, user-friendly solutions aligned with business workflows.</p>
+        <p class="timeline-summary">Contributed to the development of a multi-tenant Electronic Dealer Portal built on a Frappe-based ERPNext system.</p>
+        <div class="timeline-expand-hint"><i class="fas fa-chevron-down"></i> Click to expand</div>
+        <div class="timeline-details">
+          <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Centurion, South Africa</p>
+          <p>Worked closely with senior engineers to enhance both backend and frontend functionality, using Python, JavaScript, and HTML to deliver stable, user-friendly solutions aligned with business workflows.</p>
+          <p><strong>Key contributions:</strong></p>
+          <ul>
+            <li>Implementing backend logic and frontend updates to improve usability and performance</li>
+            <li>Supporting modular, reusable code design to ensure scalability across multiple tenants</li>
+            <li>Assisting in restoring and refining legacy features, ensuring compatibility with modern systems</li>
+            <li>Collaborating in an Agile development environment, using tools such as Git and Visual Studio Code to track progress and maintain code quality</li>
+          </ul>
+        </div>
       </div>
     </div>
 
-    <!-- Jan–Feb 2023 -->
+    <!-- Jan-Feb 2023 -->
     <div class="timeline-item right">
-      <div class="timeline-content">
+      <div class="timeline-content" onclick="toggleDetails(this)">
         <div class="timeline-date">Jan–Feb 2023</div>
         <h3>Ackermans Pharmacy</h3>
         <p><strong>Part-time Teller</strong></p>
-        <p>Demonstrated reliability and flexibility by working both full-day and night shifts, often stepping in when extra coverage was needed.</p>
+        <p class="timeline-summary">Demonstrated reliability and flexibility by working both full-day and night shifts.</p>
+        <div class="timeline-expand-hint"><i class="fas fa-chevron-down"></i> Click to expand</div>
+        <div class="timeline-details">
+          <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Primrose, South Africa</p>
+          <ul>
+            <li>Demonstrated reliability and flexibility by working both full-day and night shifts, often stepping in when extra coverage was needed</li>
+          </ul>
+        </div>
       </div>
     </div>
 
-    <!-- Dec 2022–Jan 2023 -->
+    <!-- Dec 2022-Jan 2023 -->
     <div class="timeline-item left">
-      <div class="timeline-content">
+      <div class="timeline-content" onclick="toggleDetails(this)">
         <div class="timeline-date">Dec 2022–Jan 2023</div>
         <h3>Premium Ideas</h3>
         <p><strong>Data Entry Clerk</strong></p>
-        <p>Collaborated with a small team to transition from an outdated system to a new operational workflow, completing the changeover significantly ahead of schedule.</p>
+        <p class="timeline-summary">Collaborated with a small team to transition from an outdated system to a new operational workflow.</p>
+        <div class="timeline-expand-hint"><i class="fas fa-chevron-down"></i> Click to expand</div>
+        <div class="timeline-details">
+          <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Midrand, South Africa</p>
+          <ul>
+            <li>Collaborated with a small team to transition from an outdated system to a new operational workflow, completing the changeover significantly ahead of schedule</li>
+          </ul>
+        </div>
       </div>
     </div>
 
-    <!-- Nov–Dec 2022 -->
+    <!-- Nov-Dec 2022 -->
     <div class="timeline-item right">
-      <div class="timeline-content">
+      <div class="timeline-content" onclick="toggleDetails(this)">
         <div class="timeline-date">Nov–Dec 2022</div>
         <h3>Ackermans Pharmacy</h3>
         <p><strong>Pharmacy Assistant</strong></p>
-        <p>Assisted with the relocation and organization of stock to a new business location, ensuring minimal disruption to daily operations. Supported inventory intake and stock management.</p>
+        <p class="timeline-summary">Assisted with the relocation and organization of stock to a new business location.</p>
+        <div class="timeline-expand-hint"><i class="fas fa-chevron-down"></i> Click to expand</div>
+        <div class="timeline-details">
+          <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Primrose, South Africa</p>
+          <ul>
+            <li>Assisted with the relocation and organization of stock to a new business location, ensuring minimal disruption to daily operations</li>
+            <li>Supported inventory intake and stock management by efficiently receiving and sorting incoming shipments</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
+  <div class="section-divider"></div>
 
   <section id="contact" data-aos="fade-up">
     <h2><i class="fas fa-envelope"></i> Contact</h2>
@@ -709,11 +961,33 @@
     </div>
   </section>
 
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="mailto:willem.smit222@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+      <a href="https://linkedin.com/in/willem-s-smith" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/Willem-21" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+    </div>
+    <p>&copy; 2025 Willem Smith. All rights reserved.</p>
+  </footer>
+
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+  <!-- Vercel Analytics & Speed Insights -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+
   <script>
+    // Preloader
+    window.addEventListener('load', function() {
+      const preloader = document.getElementById('preloader');
+      preloader.classList.add('hidden');
+      setTimeout(() => preloader.remove(), 500);
+    });
+
     AOS.init({ duration: 1000, once: true });
-    
+
     // Enhanced particles initialization
     particlesJS('particles-js', {
       "particles": {
@@ -803,20 +1077,47 @@
       },
       "retina_detect": true
     });
-    
+
     function toggleMode() {
       document.body.classList.toggle('light-mode');
     }
-    
+
+    // Back to top + dynamic page title on scroll
+    const sectionNames = {
+      'about': 'About',
+      'education': 'Education',
+      'skills': 'Skills',
+      'strengths': 'Strengths',
+      'projects': 'Projects',
+      'experience': 'Experience',
+      'contact': 'Contact'
+    };
+    const baseTitle = 'Willem Smith | Portfolio';
+
     window.onscroll = function () {
       const button = document.getElementById("backToTop");
-      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+      const scrollPos = document.body.scrollTop || document.documentElement.scrollTop;
+
+      if (scrollPos > 300) {
         button.style.display = "block";
       } else {
         button.style.display = "none";
       }
+
+      // Update page title based on current section
+      let currentSection = '';
+      for (const id of Object.keys(sectionNames)) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 200 && rect.bottom > 200) {
+            currentSection = id;
+          }
+        }
+      }
+      document.title = currentSection ? `${sectionNames[currentSection]} — ${baseTitle}` : baseTitle;
     }
-    
+
     function toggleMenu() {
       const nav = document.querySelector('nav');
       const hamburger = document.querySelector('.hamburger');
@@ -833,6 +1134,43 @@
         document.body.style.overflow = '';
       });
     });
+
+    // Typed text animation — types once on page load
+    (function() {
+      const text = 'Full-Stack Developer  |  BSc IT Graduate — NWU 2025  |  Johannesburg, South Africa';
+      const el = document.getElementById('typedText');
+      const cursor = document.querySelector('.typed-cursor');
+      let i = 0;
+
+      function type() {
+        if (i < text.length) {
+          el.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, 35);
+        } else {
+          cursor.classList.add('done');
+        }
+      }
+      type();
+    })();
+
+    // Expandable experience cards
+    function toggleDetails(card) {
+      const details = card.querySelector('.timeline-details');
+      const hint = card.querySelector('.timeline-expand-hint');
+      const isExpanded = details.classList.contains('expanded');
+
+      // Close all others first
+      document.querySelectorAll('.timeline-details.expanded').forEach(d => {
+        d.classList.remove('expanded');
+        d.closest('.timeline-content').querySelector('.timeline-expand-hint').innerHTML = '<i class="fas fa-chevron-down"></i> Click to expand';
+      });
+
+      if (!isExpanded) {
+        details.classList.add('expanded');
+        hint.innerHTML = '<i class="fas fa-chevron-up"></i> Click to collapse';
+      }
+    }
   </script>
 </body>
 </html>
