@@ -968,7 +968,7 @@
       <a href="https://linkedin.com/in/willem-s-smith" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
       <a href="https://github.com/Willem-21" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
     </div>
-    <p>&copy; 2025 Willem Smith. All rights reserved.</p>
+    <p>&copy; <span id="footerYear"></span> Willem Smith. All rights reserved.</p>
   </footer>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -979,6 +979,9 @@
   <script defer src="/_vercel/speed-insights/script.js"></script>
 
   <script>
+    // Dynamic footer year
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
+
     // Preloader
     window.addEventListener('load', function() {
       const preloader = document.getElementById('preloader');
