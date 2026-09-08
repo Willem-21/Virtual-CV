@@ -6,20 +6,20 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <meta name="description" content="Willem Smith — BSc IT Graduate from North-West University. Full-stack developer skilled in Python, JavaScript, React, Next.js, and modern frameworks. Based in Johannesburg, South Africa.">
-  <meta name="keywords" content="Willem Smith, Full-Stack Developer, BSc IT, NWU, Portfolio, Web Developer, South Africa, React, Next.js, Python, JavaScript">
+  <meta name="description" content="Willem Smith — Full-Stack Developer building a production POS platform with React Native, FastAPI and MSSQL. BSc IT graduate focused on real-time systems, API design and AI-driven engineering. Based in Johannesburg, South Africa.">
+  <meta name="keywords" content="Willem Smith, Full-Stack Developer, BSc IT, NWU, Portfolio, React Native, FastAPI, Python, TypeScript, MSSQL, WebSockets, POS, AI, MCP, South Africa">
   <meta name="author" content="Willem Smith">
   <!-- Open Graph -->
-  <meta property="og:title" content="Willem Smith | Full-Stack Developer Portfolio">
-  <meta property="og:description" content="BSc IT Graduate from North-West University with hands-on experience in full-stack web development. View my projects, skills, and experience.">
+  <meta property="og:title" content="Willem Smith | Full-Stack Developer — Enterprise Systems & AI-Driven Engineering">
+  <meta property="og:description" content="Full-Stack Developer building a production POS platform end-to-end — React Native, FastAPI and MSSQL. View my projects, skills and experience.">
   <meta property="og:image" content="https://willemsmith.co.za/Thumbnail.jpg">
   <meta property="og:url" content="https://willemsmith.co.za">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Willem Smith Portfolio">
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Willem Smith | Full-Stack Developer Portfolio">
-  <meta name="twitter:description" content="BSc IT Graduate & Full-Stack Developer based in Johannesburg, South Africa. View my projects and experience.">
+  <meta name="twitter:title" content="Willem Smith | Full-Stack Developer — Enterprise Systems & AI-Driven Engineering">
+  <meta name="twitter:description" content="Full-Stack Developer building a production POS platform with React Native, FastAPI and MSSQL. Based in Johannesburg, South Africa.">
   <meta name="twitter:image" content="https://willemsmith.co.za/Thumbnail.jpg">
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>WS</text></svg>">
@@ -44,9 +44,14 @@
     }
     body.light-mode .project,
     body.light-mode .skill-box,
+    body.light-mode .cert-card,
+    body.light-mode .strength-card,
+    body.light-mode .edu-card,
     body.light-mode .timeline-content {
       background-color: #e2e2e2;
     }
+    body.light-mode .tag { background-color: #d2d2d2; color: #222; }
+    body.light-mode .cert-modal-inner { background-color: #f5f5f5; color: #222; }
 
     /* Preloader */
     .preloader {
@@ -120,6 +125,7 @@
       justify-content: center;
       gap: 1.5rem;
       z-index: 1000;
+      flex-wrap: wrap;
     }
     nav a {
       color: #58a6ff;
@@ -194,6 +200,7 @@
       font-size: 1.8rem;
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
     }
     /* Fixed Icon Spacing - More Pronounced */
     h2 i {
@@ -210,8 +217,56 @@
     body.light-mode h2 i {
       color: #1e90ff;
     }
+    h2 .count {
+      font-size: 0.9rem;
+      background: #58a6ff;
+      color: #0d1117;
+      border-radius: 999px;
+      padding: 0.1rem 0.6rem;
+      margin-left: 0.8rem;
+      font-weight: 700;
+      transform: translateY(-2px);
+    }
     ul { list-style: none; padding: 0; }
     li { margin-bottom: 1.25rem; line-height: 1.6; }
+
+    /* Sub-headings inside sections */
+    .subheading {
+      color: #58a6ff;
+      font-size: 1.15rem;
+      margin: 2.5rem 0 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    /* Tag pills */
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.9rem; }
+    .tag {
+      background: #23272e;
+      color: #cbd5e1;
+      font-size: 0.78rem;
+      padding: 0.28rem 0.7rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    /* Key achievements list in About */
+    .key-achievements {
+      margin: 1.5rem 0 0;
+    }
+    .key-achievements li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      margin-bottom: 0.8rem;
+    }
+    .key-achievements li i {
+      color: #2ecc71;
+      margin-top: 0.25rem;
+      flex-shrink: 0;
+    }
+
     .project {
       background-color: #1a1a1a;
       padding: 1.5rem;
@@ -229,6 +284,29 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .project .tech-line {
+      font-size: 0.85rem;
+      color: #999;
+      margin: 0.75rem 0 0;
+    }
+    .project .project-note {
+      font-size: 0.85rem;
+      color: #999;
+      font-style: italic;
+      margin: 1rem 0 0;
+    }
+    .wip-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      background: rgba(46, 204, 113, 0.15);
+      color: #2ecc71;
+      border: 1px solid rgba(46, 204, 113, 0.4);
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
     }
     .social {
       text-align: center;
@@ -307,19 +385,16 @@
       transform: translateY(-11px) rotate(-45deg);
     }
 
-    /* Skills Boxes */
+    /* Skills — 2x2 grid */
     .skills-container {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1.5rem;
-      flex-wrap: wrap;
-      justify-content: center;
     }
     .skill-box {
       background: #1a1a1a;
       border-radius: 10px;
       padding: 1.5rem;
-      flex: 1;
-      min-width: 250px;
       transition: transform 0.3s;
     }
     .skill-box:hover {
@@ -357,6 +432,252 @@
     }
     @keyframes fill { from { width: 0; } }
 
+    /* Certifications */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    .cert-card {
+      background: #1a1a1a;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      padding: 1.1rem 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      width: 100%;
+      text-align: left;
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+    .cert-card:hover,
+    .cert-card:focus-visible {
+      transform: translateY(-4px);
+      border-color: #58a6ff;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+      outline: none;
+    }
+    .cert-card > i {
+      color: #58a6ff;
+      font-size: 1.1rem;
+      margin-top: 0.15rem;
+      flex-shrink: 0;
+    }
+    .cert-card .cert-name { font-weight: 500; display: block; }
+    .cert-card .cert-issuer {
+      display: block;
+      font-size: 0.8rem;
+      color: #999;
+      margin-top: 0.2rem;
+    }
+    .cert-card .cert-view {
+      display: block;
+      font-size: 0.75rem;
+      color: #58a6ff;
+      margin-top: 0.4rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .cert-card:hover .cert-view,
+    .cert-card:focus-visible .cert-view { opacity: 1; }
+    .cert-card.pending {
+      border-style: dashed;
+      border-color: #555;
+      cursor: default;
+    }
+    .cert-card.pending:hover {
+      transform: none;
+      border-color: #555;
+      box-shadow: none;
+    }
+    .cert-card.pending > i { color: #888; }
+    .cert-card.pending .cert-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #d29922;
+      border: 1px solid rgba(210, 153, 34, 0.4);
+      background: rgba(210, 153, 34, 0.12);
+      border-radius: 999px;
+      padding: 0.1rem 0.5rem;
+      margin-top: 0.45rem;
+    }
+
+    /* Certificate modal */
+    .cert-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .cert-modal.open { display: flex; }
+    .cert-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+    }
+    .cert-modal-inner {
+      position: relative;
+      background: #1a1a1a;
+      color: #f5f5f5;
+      border-radius: 12px;
+      width: min(820px, 94vw);
+      height: min(94vh, 1200px);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+    }
+    .cert-modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem 1.1rem;
+      border-bottom: 1px solid #333;
+    }
+    .cert-modal-head h3 {
+      margin: 0;
+      font-size: 1rem;
+      color: #58a6ff;
+    }
+    .cert-modal-close {
+      background: none;
+      border: none;
+      color: inherit;
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+    }
+    .cert-modal-close:hover { background: rgba(255,255,255,0.1); }
+    .cert-frame {
+      flex: 1;
+      width: 100%;
+      min-height: 0;
+      border: none;
+      background: #525659;
+    }
+    .cert-fallback {
+      padding: 0.8rem 1.1rem;
+      font-size: 0.85rem;
+      text-align: center;
+      border-top: 1px solid #333;
+      color: #999;
+    }
+    .cert-fallback a { color: #58a6ff; font-weight: 600; }
+
+    /* Strengths — card grid */
+    .strengths-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+    .strength-card {
+      background: #1a1a1a;
+      border-radius: 10px;
+      padding: 1.5rem 1.35rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .strength-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 22px rgba(0,0,0,0.22);
+    }
+    .strength-card .strength-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(88, 166, 255, 0.14);
+      color: #58a6ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      margin-bottom: 0.9rem;
+    }
+    .strength-card h3 {
+      margin: 0 0 0.4rem;
+      font-size: 1.05rem;
+      color: #58a6ff;
+    }
+    .strength-card p {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    /* Education — card grid */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+    .edu-card {
+      background: #1a1a1a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .edu-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 22px rgba(0,0,0,0.22);
+    }
+    .edu-card .edu-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(88, 166, 255, 0.14);
+      color: #58a6ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 0.9rem;
+    }
+    .edu-card h3 {
+      margin: 0 0 0.25rem;
+      font-size: 1.08rem;
+      color: #58a6ff;
+    }
+    .edu-card .edu-inst { margin: 0; font-weight: 500; }
+    .edu-card .edu-dates {
+      margin: 0.15rem 0 0;
+      font-size: 0.85rem;
+      color: #999;
+    }
+    .edu-card .edu-desc {
+      margin: 0.9rem 0 0;
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+    .lang-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      padding: 0;
+    }
+    .lang-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0;
+      background: #1a1a1a;
+      border-radius: 999px;
+      padding: 0.45rem 1rem;
+      font-size: 0.9rem;
+    }
+    body.light-mode .lang-list li { background: #e2e2e2; }
+    .lang-list li i { color: #58a6ff; }
+
     /* Project Demo Styles */
     .project-features {
       margin: 1rem 0 1.5rem;
@@ -365,8 +686,13 @@
     .project-features li {
       margin-bottom: 0.8rem;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 0.5rem;
+    }
+    .project-features li i {
+      color: #2ecc71;
+      margin-top: 0.25rem;
+      flex-shrink: 0;
     }
     .demo-container {
       margin: 2rem 0;
@@ -459,6 +785,7 @@
       transform: translateY(-5px);
       box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
+    .timeline-content h3 { margin-bottom: 0.3rem; }
     .timeline-date {
       font-weight: bold;
       color: #58a6ff;
@@ -482,11 +809,11 @@
     .timeline-details {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.4s ease, margin-top 0.3s ease;
+      transition: max-height 0.5s ease, margin-top 0.3s ease;
       margin-top: 0;
     }
     .timeline-details.expanded {
-      max-height: 500px;
+      max-height: 1600px;
       margin-top: 1rem;
     }
     .timeline-details ul {
@@ -497,6 +824,11 @@
       margin-bottom: 0.5rem;
       font-size: 0.95rem;
       line-height: 1.5;
+    }
+    .timeline-details .tech-line {
+      font-size: 0.82rem;
+      color: #999;
+      margin: 0.5rem 0 0.75rem;
     }
     .timeline-location {
       font-size: 0.85rem;
@@ -557,6 +889,8 @@
         justify-content: flex-start;
         padding-top: 2rem;
         transition: left 0.3s ease;
+        flex-wrap: nowrap;
+        overflow-y: auto;
       }
       nav.active {
         left: 0;
@@ -568,8 +902,11 @@
         padding: 0.3rem 0.6rem;
         font-size: 0.8rem;
       }
-      .skills-container {
-        flex-direction: column;
+      .skills-container,
+      .cert-grid,
+      .strengths-grid,
+      .edu-grid {
+        grid-template-columns: 1fr;
       }
       .demo-frame {
         height: 300px;
@@ -607,6 +944,19 @@
       .typed-text {
         font-size: 1rem;
       }
+      .cert-card .cert-view { opacity: 0.75; }
+      .cert-modal { padding: 0; }
+      .cert-modal-inner {
+        width: 100vw;
+        max-height: 100vh;
+        height: 100vh;
+        border-radius: 0;
+      }
+      .cert-frame { min-height: 0; }
+    }
+
+    @media (min-width: 561px) and (max-width: 768px) {
+      .strengths-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
   </style>
 </head>
@@ -620,11 +970,12 @@
   <button class="toggle-button" onclick="toggleMode()">Toggle Theme</button>
   <nav>
     <a href="#about">About</a>
-    <a href="#education">Education</a>
-    <a href="#skills">Skills</a>
-    <a href="#strengths">Strengths</a>
-    <a href="#projects">Projects</a>
     <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#education">Education</a>
+    <a href="#strengths">Strengths</a>
     <a href="#contact">Contact</a>
   </nav>
 
@@ -636,7 +987,7 @@
   </div>
 
   <a href="#top" class="back-to-top" id="backToTop">Top</a>
-  <img src="banner.jpg" alt="Banner" class="hero-image" id="top" loading="lazy" />
+  <img src="banner.jpg" alt="Banner" class="hero-image" id="top" />
 
   <!-- Typed intro text -->
   <div class="typed-container">
@@ -647,19 +998,84 @@
 
   <section id="about" data-aos="fade-up">
     <h2><i class="fas fa-user"></i> About</h2>
-    <p>I am a results-driven BSc IT Graduate from North-West University with hands-on experience in full-stack web application development using Python, JavaScript and modern frameworks. During my role as a Junior Developer at Tecwise, I actively contributed to the development and maintenance of a multi-tenant dealer portal built on the Frappe framework, gaining valuable experience in backend logic, UI refinement and collaborative Agile software development.</p>
-    <p>I am passionate about designing and building efficient, scalable and user-centered applications that deliver real-world impact. I take pride in crafting software that is both technically sound and intuitively designed.</p>
-    <p>With a solid foundation in full-stack principles and a growing interest in cloud-native and automation technologies, I am eager to contribute to a forward-thinking development team. My goal is to continue expanding my technical depth while creating innovative digital solutions that help shape South Africa's evolving tech landscape.</p>
+    <p>I am a full-stack software developer with a BSc in Information Technology from North-West University. I am currently a Full-Stack Developer at Thoughtware (Pty) Ltd, where I independently own major feature areas of a production point-of-sale platform end-to-end — React Native frontend, FastAPI backend, and MSSQL data layer — with a focus on real-time systems, API design, and reliability engineering.</p>
+    <p>I architected and led development of a POS ecosystem from scratch: the core POS application plus companion apps for customer display, manager reporting, and back-office administration, all sharing one FastAPI/MSSQL backend. Alongside product work, I designed an AI context infrastructure that gives developers and AI agents structured, source-verifiable knowledge about a large multi-service codebase.</p>
+    <p>I care about software that is technically sound and intuitively designed, and I am drawn to real-time systems, clean architecture, and automation. My goal is to keep expanding my technical depth while building solutions that help shape South Africa's evolving tech landscape.</p>
+    <ul class="key-achievements">
+      <li><i class="fas fa-check-circle"></i> Solo full-stack developer across major areas of a production POS platform, spanning React Native, FastAPI, and MSSQL.</li>
+      <li><i class="fas fa-check-circle"></i> Designed a two-phase commit and reconciliation job that closed a data-loss window in live payment processing.</li>
+      <li><i class="fas fa-check-circle"></i> Built a real-time WebSocket event bus broadcasting live order, table, and staff updates across every connected POS terminal.</li>
+      <li><i class="fas fa-check-circle"></i> Designed and implemented an AI context infrastructure spanning 8 integrated applications and ~90 API routes, reducing token costs and hallucinations in AI-assisted development.</li>
+    </ul>
   </section>
 
   <div class="section-divider"></div>
 
-  <section id="education" data-aos="fade-up">
-    <h2><i class="fas fa-graduation-cap"></i> Education</h2>
-    <ul>
-      <li><strong>Bachelor of Science - Information Technology</strong><br>North-West University, 2022 – 2025</li>
-      <li><strong>High School</strong><br>Leeuwenhof Akademie, 2017 – 2021</li>
-    </ul>
+  <section id="experience" data-aos="fade-up">
+    <h2><i class="fas fa-briefcase"></i> Experience</h2>
+    <div class="timeline">
+      <!-- Thoughtware — Apr 2026 to Present -->
+      <div class="timeline-item left">
+        <div class="timeline-content" onclick="toggleDetails(this)">
+          <div class="timeline-date">Apr 2026 – Present</div>
+          <h3>Thoughtware (Pty) Ltd</h3>
+          <p><strong>Full-Stack Developer</strong></p>
+          <p class="timeline-summary">Architected and built a point-of-sale ecosystem from scratch — the core POS app and four companion apps — over roughly 4.5 months.</p>
+          <div class="timeline-expand-hint"><i class="fas fa-chevron-down"></i> Click to expand</div>
+          <div class="timeline-details">
+            <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Johannesburg, South Africa</p>
+            <p class="tech-line">React Native &middot; React &middot; TypeScript &middot; Vite &middot; Python &middot; FastAPI &middot; SQLAlchemy &middot; MSSQL &middot; WebSockets &middot; JWT &middot; AsyncStorage &middot; ESC/POS</p>
+            <p>Designed and led development of the core POS app and four companion apps: Customer Display System, Manager Dashboard, and Back Office built from scratch, and the Kitchen Display System extended with new capabilities.</p>
+            <ul>
+              <li>Built the core POS application solo: order/payment flow, floor plan and table management, staff/PIN permissions, offline-resilient sync, and a full first-run setup wizard.</li>
+              <li>Designed the real-time layer end to end: JWT auth with automatic token refresh, and a WebSocket event bus (FastAPI + asyncio) broadcasting live table/order state to every connected POS terminal, kitchen display, and customer display.</li>
+              <li>Engineered a two-phase commit and startup reconciliation job to close a data-loss window on payment completion — scoped and delivered independently once the failure mode was identified in production.</li>
+              <li>Built three companion apps from scratch: a customer-facing display app (live order mirroring, scan-to-pay via hosted card checkout, email receipts), a manager reporting dashboard (sales/insights analytics, staff and payment-method breakdowns), and a back-office admin hub (React/Vite/TypeScript) for menu, pricing, and margin management, including a data-migration path from a legacy POS system.</li>
+              <li>Extended an existing kitchen display system with new real-time and recovery features: WebSocket reconnect hardening, hidden-order recall with search, and a dedicated kitchen-ticket print format.</li>
+              <li>Contributed the POS-facing feature set to a shared FastAPI/MSSQL backend, including the combo/discount engine, seat-level billing, shift management, and the real-time event API.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tecwise — Aug to Oct 2025 -->
+      <div class="timeline-item right">
+        <div class="timeline-content" onclick="toggleDetails(this)">
+          <div class="timeline-date">Aug – Oct 2025</div>
+          <h3>Tecwise</h3>
+          <p><strong>Junior Developer (Part-Time)</strong></p>
+          <p class="timeline-summary">Contributed to the ongoing development of a multi-tenant Electronic Dealer Portal built on a Frappe-based ERPNext system, used by multiple automotive dealerships across South Africa.</p>
+          <div class="timeline-expand-hint"><i class="fas fa-chevron-down"></i> Click to expand</div>
+          <div class="timeline-details">
+            <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Centurion, South Africa</p>
+            <p>Worked closely with senior engineers to enhance both backend and frontend functionality, using Python, JavaScript, and HTML to deliver stable, user-friendly solutions aligned with business workflows.</p>
+            <ul>
+              <li>Implemented backend logic and frontend updates to improve usability and performance.</li>
+              <li>Supported modular, reusable code design to ensure scalability across multiple tenants.</li>
+              <li>Assisted in restoring and refining legacy features, ensuring compatibility with modern systems.</li>
+              <li>Collaborated in an Agile development environment, using Git and Visual Studio Code to track progress and maintain code quality.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Premium Ideas — Dec 2022 to Jan 2023 -->
+      <div class="timeline-item left">
+        <div class="timeline-content" onclick="toggleDetails(this)">
+          <div class="timeline-date">Dec 2022 – Jan 2023</div>
+          <h3>Premium Ideas</h3>
+          <p><strong>Data Capturer</strong></p>
+          <p class="timeline-summary">Part of a team that migrated data from a legacy system to a new operational platform.</p>
+          <div class="timeline-expand-hint"><i class="fas fa-chevron-down"></i> Click to expand</div>
+          <div class="timeline-details">
+            <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Midrand, South Africa</p>
+            <ul>
+              <li>Collaborated with a small team to transition from an outdated system to a new operational workflow, completing the changeover ahead of schedule.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <div class="section-divider"></div>
@@ -669,119 +1085,88 @@
     <div class="skills-container">
       <!-- Box 1 -->
       <div class="skill-box">
-        <h3><i class="fas fa-laptop-code"></i> Front-End</h3>
+        <h3><i class="fas fa-database"></i> Languages &amp; Databases</h3>
         <ul>
+          <li><i class="fab fa-python"></i> Python
+            <div class="skill-bar-container"><div class="skill-bar"><div class="skill-level" style="width: 90%;"></div></div></div>
+          </li>
+          <li><i class="fas fa-code"></i> TypeScript
+            <div class="skill-bar-container"><div class="skill-bar"><div class="skill-level" style="width: 85%;"></div></div></div>
+          </li>
           <li><i class="fab fa-js"></i> JavaScript
-            <div class="skill-bar-container">
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 90%;"></div>
-              </div>
-            </div>
+            <div class="skill-bar-container"><div class="skill-bar"><div class="skill-level" style="width: 85%;"></div></div></div>
           </li>
-          <li><i class="fab fa-react"></i> React.js
-            <div class="skill-bar-container">
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 85%;"></div>
-              </div>
-            </div>
+          <li><i class="fas fa-database"></i> SQL
+            <div class="skill-bar-container"><div class="skill-bar"><div class="skill-level" style="width: 82%;"></div></div></div>
           </li>
-          <li><i class="fab fa-html5"></i> HTML
-            <div class="skill-bar-container">
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 95%;"></div>
-              </div>
-            </div>
+          <li><i class="fas fa-server"></i> MSSQL
+            <div class="skill-bar-container"><div class="skill-bar"><div class="skill-level" style="width: 80%;"></div></div></div>
           </li>
         </ul>
       </div>
 
       <!-- Box 2 -->
       <div class="skill-box">
-        <h3><i class="fas fa-server"></i> Back-End</h3>
+        <h3><i class="fas fa-tools"></i> Frameworks &amp; Tools</h3>
         <ul>
-          <li><i class="fas fa-code"></i> C#
-            <div class="skill-bar-container">
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 80%;"></div>
-              </div>
-            </div>
+          <li><i class="fas fa-bolt"></i> FastAPI
+            <div class="skill-bar-container"><div class="skill-bar"><div class="skill-level" style="width: 88%;"></div></div></div>
           </li>
-          <li><i class="fas fa-code"></i> C++
-            <div class="skill-bar-container">
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 85%;"></div>
-              </div>
-            </div>
+          <li><i class="fab fa-react"></i> React Native
+            <div class="skill-bar-container"><div class="skill-bar"><div class="skill-level" style="width: 85%;"></div></div></div>
           </li>
-          <li><i class="fab fa-python"></i> Python
-            <div class="skill-bar-container">
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 78%;"></div>
-              </div>
-            </div>
+          <li><i class="fab fa-react"></i> React
+            <div class="skill-bar-container"><div class="skill-bar"><div class="skill-level" style="width: 82%;"></div></div></div>
           </li>
-          <li><i class="fab fa-java"></i> Java
-            <div class="skill-bar-container">
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 72%;"></div>
-              </div>
-            </div>
+          <li><i class="fas fa-bolt"></i> Vite
+            <div class="skill-bar-container"><div class="skill-bar"><div class="skill-level" style="width: 78%;"></div></div></div>
           </li>
-          <li><i class="fab fa-node-js"></i> Node.js
-            <div class="skill-bar-container">
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 75%;"></div>
-              </div>
-            </div>
+          <li><i class="fas fa-layer-group"></i> SQLAlchemy
+            <div class="skill-bar-container"><div class="skill-bar"><div class="skill-level" style="width: 80%;"></div></div></div>
           </li>
-          <li><i class="fas fa-cube"></i> Object-oriented programming
-            <div class="skill-bar-container">
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 88%;"></div>
-              </div>
-            </div>
+          <li><i class="fab fa-github"></i> Git / GitHub
+            <div class="skill-bar-container"><div class="skill-bar"><div class="skill-level" style="width: 90%;"></div></div></div>
           </li>
         </ul>
       </div>
 
       <!-- Box 3 -->
       <div class="skill-box">
-        <h3><i class="fas fa-tools"></i> Tools & Frameworks</h3>
+        <h3><i class="fas fa-sitemap"></i> Integration &amp; Architecture</h3>
         <ul>
-          <li><i class="fab fa-github"></i> GitHub
-            <div class="skill-bar-container">
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 90%;"></div>
-              </div>
-            </div>
+          <li><i class="fas fa-exchange-alt"></i> REST APIs
+            <div class="skill-bar-container"><div class="skill-bar"><div class="skill-level" style="width: 88%;"></div></div></div>
           </li>
-          <li><i class="fas fa-file-word"></i> Microsoft Office
-            <div class="skill-bar-container">
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 85%;"></div>
-              </div>
-            </div>
+          <li><i class="fas fa-key"></i> JWT Authentication
+            <div class="skill-bar-container"><div class="skill-bar"><div class="skill-level" style="width: 85%;"></div></div></div>
           </li>
-          <li><i class="fas fa-database"></i> SQL
-            <div class="skill-bar-container">
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 83%;"></div>
-              </div>
-            </div>
+          <li><i class="fas fa-plug"></i> WebSockets
+            <div class="skill-bar-container"><div class="skill-bar"><div class="skill-level" style="width: 85%;"></div></div></div>
           </li>
-          <li><i class="fas fa-cogs"></i> Frappe Framework
-            <div class="skill-bar-container">
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 70%;"></div>
-              </div>
-            </div>
+          <li><i class="fas fa-cubes"></i> Microservices
+            <div class="skill-bar-container"><div class="skill-bar"><div class="skill-level" style="width: 78%;"></div></div></div>
           </li>
-          <li><i class="fas fa-industry"></i> ERPNext
-            <div class="skill-bar-container">
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 68%;"></div>
-              </div>
-            </div>
+        </ul>
+      </div>
+
+      <!-- Box 4 -->
+      <div class="skill-box">
+        <h3><i class="fas fa-robot"></i> AI &amp; Automation</h3>
+        <ul>
+          <li><i class="fas fa-brain"></i> Claude AI
+            <div class="skill-bar-container"><div class="skill-bar"><div class="skill-level" style="width: 90%;"></div></div></div>
+          </li>
+          <li><i class="fas fa-laptop-code"></i> AI-Assisted Development
+            <div class="skill-bar-container"><div class="skill-bar"><div class="skill-level" style="width: 90%;"></div></div></div>
+          </li>
+          <li><i class="fas fa-diagram-project"></i> Agentic Workflows
+            <div class="skill-bar-container"><div class="skill-bar"><div class="skill-level" style="width: 85%;"></div></div></div>
+          </li>
+          <li><i class="fas fa-network-wired"></i> Model Context Protocol (MCP)
+            <div class="skill-bar-container"><div class="skill-bar"><div class="skill-level" style="width: 82%;"></div></div></div>
+          </li>
+          <li><i class="fas fa-comment-dots"></i> Prompt Engineering
+            <div class="skill-bar-container"><div class="skill-bar"><div class="skill-level" style="width: 85%;"></div></div></div>
           </li>
         </ul>
       </div>
@@ -790,30 +1175,43 @@
 
   <div class="section-divider"></div>
 
-  <section id="strengths" data-aos="fade-up">
-    <h2><i class="fas fa-star"></i> Strengths</h2>
-    <ul>
-      <li><strong>Adaptability:</strong> Able to quickly adjust to new tools, environments, and challenges — whether in a development project or a work setting.</li>
-      <li><strong>Problem-Solving Mindset:</strong> Naturally curious and resourceful when tackling coding challenges or finding efficient solutions in unfamiliar situations.</li>
-      <li><strong>Attention to Detail:</strong> Consistently delivers clean, reliable work by focusing on accuracy in both code and process.</li>
-      <li><strong>Self-Motivation & Initiative:</strong> Proactively learns new technologies, builds projects independently, and seeks out opportunities to grow both technically and professionally.</li>
-      <li><strong>Team Collaboration:</strong> Works well in team-based environments, supporting shared goals through open communication and cooperative problem-solving.</li>
-    </ul>
-  </section>
-
-  <div class="section-divider"></div>
-
   <section id="projects" data-aos="fade-up">
     <h2><i class="fas fa-project-diagram"></i> Projects</h2>
+
+    <div class="project">
+      <h3><i class="fas fa-cash-register"></i> Thoughtware POS Ecosystem</h3>
+      <p>A production point-of-sale ecosystem I architected and built from scratch at Thoughtware over ~4.5 months: a core POS app plus companion apps that share one FastAPI/MSSQL backend.</p>
+      <ul class="project-features">
+        <li><i class="fas fa-check-circle"></i> Core POS app (solo): order/payment flow, floor-plan &amp; table management, staff/PIN permissions, offline-resilient sync, and a first-run setup wizard</li>
+        <li><i class="fas fa-check-circle"></i> Real-time layer: JWT auth with automatic token refresh and a WebSocket event bus (FastAPI + asyncio) keeping every terminal, kitchen display, and customer display in sync</li>
+        <li><i class="fas fa-check-circle"></i> Two-phase commit &amp; startup reconciliation job that closed a data-loss window on payment completion</li>
+        <li><i class="fas fa-check-circle"></i> Companion apps built from scratch: customer display (scan-to-pay, email receipts), manager reporting dashboard, and a back-office admin hub (React / Vite / TypeScript)</li>
+        <li><i class="fas fa-check-circle"></i> Backend contributions: combo/discount engine, seat-level billing, shift management, and the real-time event API</li>
+      </ul>
+      <p class="tech-line">React Native &middot; React &middot; TypeScript &middot; Vite &middot; Python &middot; FastAPI &middot; SQLAlchemy &middot; MSSQL &middot; WebSockets</p>
+      <p class="project-note">Commercial project — source code is private.</p>
+    </div>
+
+    <div class="project">
+      <h3><i class="fas fa-brain"></i> AI Context Infrastructure</h3>
+      <p>A persistent AI context layer for a multi-repository SaaS ecosystem (8 applications, ~90 API routes) that gives developers and AI agents structured, source-verifiable knowledge to reason about dependencies, business logic, and change impact.</p>
+      <ul class="project-features">
+        <li><i class="fas fa-check-circle"></i> Layered knowledge architecture: high-level summary &rarr; service-specific reference &rarr; in-depth technical analysis, with source-based confidence ratings to cut hallucinations</li>
+        <li><i class="fas fa-check-circle"></i> Coordinated parallel AI research agents to cross-verify a large multi-service codebase and map cross-service dependencies</li>
+        <li><i class="fas fa-check-circle"></i> Result: faster feature development, more accurate AI-assisted code generation, and lower onboarding cost for new developers</li>
+      </ul>
+      <p class="tech-line">Claude AI &middot; Agentic Workflows &middot; Model Context Protocol (MCP) &middot; Prompt Engineering</p>
+    </div>
+
     <div class="project">
       <h3><i class="fas fa-industry"></i> Gravity Plastics — Client Website</h3>
       <p>A full commercial website built for a South African plastics manufacturer, developed with Next.js and React:</p>
       <ul class="project-features">
         <li><i class="fas fa-check-circle"></i> 9-page responsive site with product catalogue (6 ranges, 22 variants)</li>
-        <li><i class="fas fa-check-circle"></i> Interactive 3D WebGL fluid simulation, animations & parallax effects</li>
-        <li><i class="fas fa-check-circle"></i> Integrated contact & quote request forms with email delivery</li>
+        <li><i class="fas fa-check-circle"></i> Interactive 3D WebGL fluid simulation, animations &amp; parallax effects</li>
+        <li><i class="fas fa-check-circle"></i> Integrated contact &amp; quote request forms with email delivery</li>
         <li><i class="fas fa-check-circle"></i> Full SEO, security headers, and enterprise-grade hardening</li>
-        <li><i class="fas fa-check-circle"></i> Built with Next.js 16, React 19, TypeScript, Tailwind CSS, Three.js & GSAP</li>
+        <li><i class="fas fa-check-circle"></i> Built with Next.js 16, React 19, TypeScript, Tailwind CSS, Three.js &amp; GSAP</li>
       </ul>
 
       <!-- Preview Container -->
@@ -833,116 +1231,181 @@
 
     <div class="project">
       <h3><i class="fas fa-comments"></i> Real-Time Chat App</h3>
-      <p>A full-stack messaging application featuring:</p>
+      <p>A full-stack group project — a real-time messaging application with group and private channels.</p>
       <ul class="project-features">
         <li><i class="fas fa-check-circle"></i> Group and private messaging</li>
         <li><i class="fas fa-check-circle"></i> Socket.io real-time communication</li>
         <li><i class="fas fa-check-circle"></i> Responsive design</li>
       </ul>
+      <p class="tech-line">Node.js &middot; Socket.io &middot; JavaScript</p>
+      <div class="project-links">
+        <a href="https://github.com/Willem-21/Group27-App" class="button" target="_blank">
+          <i class="fab fa-github"></i> Source Code
+        </a>
+        <a href="https://group27-app-final.onrender.com" class="button demo-button" target="_blank">
+          <i class="fas fa-external-link-alt"></i> Open Live Demo
+        </a>
+      </div>
+      <p class="project-note">The live demo is hosted on a free tier and may take ~30 seconds to wake on first load.</p>
+    </div>
 
-      <!-- Demo Container -->
-      <div class="demo-container">
-        <div class="demo-frame-container">
-          <iframe src="https://group27-app-final.onrender.com"
-                  title="Live Chat App Demo"
-                  loading="lazy"
-                  allow="camera; microphone"
-                  class="demo-frame"></iframe>
-          <div class="demo-overlay">Live Demo</div>
-        </div>
+    <h3 class="subheading"><i class="fas fa-screwdriver-wrench"></i> Currently Building</h3>
 
-        <div class="project-links">
-          <a href="https://github.com/Willem-21/Group27-App" class="button" target="_blank">
-            <i class="fab fa-github"></i> Source Code
-          </a>
-          <a href="https://group27-app-final.onrender.com" class="button demo-button" target="_blank">
-            <i class="fas fa-external-link-alt"></i> Open Fullscreen
-          </a>
-        </div>
+    <div class="project">
+      <h3><i class="fas fa-piggy-bank"></i> Stash — Personal Budgeting App <span class="wip-badge">In development</span></h3>
+      <p>A private, offline-first budgeting app for iOS and Android. Everything lives on the device by default; cloud backup is opt-in.</p>
+      <ul class="project-features">
+        <li><i class="fas fa-check-circle"></i> "Safe to spend" — one number that accounts for every budget, bill, and goal</li>
+        <li><i class="fas fa-check-circle"></i> Carry-over budgets with limit alerts and optional rollover</li>
+        <li><i class="fas fa-check-circle"></i> Savings goals with round-ups and progress projections</li>
+        <li><i class="fas fa-check-circle"></i> Investment &amp; net-worth tracking, monthly CSV reports, and a shared partner wallet</li>
+        <li><i class="fas fa-check-circle"></i> Biometric lock, offline storage, and AI-assisted spending insights</li>
+      </ul>
+      <p class="tech-line">React Native &middot; Expo (SDK 57) &middot; TypeScript &middot; Supabase &middot; Reanimated &middot; react-native-svg</p>
+    </div>
+
+    <div class="project">
+      <h3><i class="fas fa-golf-ball-tee"></i> Caddy AI — Golf Swing Analysis <span class="wip-badge">In development</span></h3>
+      <p>A mobile app that analyses a recorded golf swing frame-by-frame and returns AI-generated coaching feedback plus a follow-up coach chat.</p>
+      <ul class="project-features">
+        <li><i class="fas fa-check-circle"></i> Record a swing on-device; the backend extracts key phase frames with ffmpeg</li>
+        <li><i class="fas fa-check-circle"></i> AI swing analysis and conversational coaching via the Anthropic API</li>
+        <li><i class="fas fa-check-circle"></i> Club-bag management, session history, and progress tracking</li>
+        <li><i class="fas fa-check-circle"></i> JWT auth, Cloudflare R2 video storage, PayFast billing, and a Next.js marketing/account site</li>
+      </ul>
+      <p class="tech-line">Expo React Native &middot; FastAPI &middot; SQLAlchemy &middot; PostgreSQL &middot; Anthropic API &middot; ffmpeg &middot; Next.js</p>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section id="certifications" data-aos="fade-up">
+    <h2><i class="fas fa-certificate"></i> Certifications <span class="count">10</span></h2>
+    <p style="margin-top:-1rem;color:#999;font-size:0.9rem;">Click any certificate to view it.</p>
+    <div class="cert-grid">
+      <button type="button" class="cert-card" onclick="openCert('ai-fluency-framework-foundations.pdf','AI Fluency: Framework &amp; Foundations')">
+        <i class="fas fa-award"></i>
+        <span><span class="cert-name">AI Fluency: Framework &amp; Foundations</span><span class="cert-issuer">Anthropic Academy</span><span class="cert-view"><i class="fas fa-up-right-from-square"></i> View certificate</span></span>
+      </button>
+      <button type="button" class="cert-card" onclick="openCert('ai-fluency-ai-capabilities-limitations.pdf','AI Fluency: Capabilities &amp; Limitations')">
+        <i class="fas fa-award"></i>
+        <span><span class="cert-name">AI Fluency: Capabilities &amp; Limitations</span><span class="cert-issuer">Anthropic Academy</span><span class="cert-view"><i class="fas fa-up-right-from-square"></i> View certificate</span></span>
+      </button>
+      <button type="button" class="cert-card" onclick="openCert('claude-101.pdf','Claude 101')">
+        <i class="fas fa-award"></i>
+        <span><span class="cert-name">Claude 101</span><span class="cert-issuer">Anthropic Academy</span><span class="cert-view"><i class="fas fa-up-right-from-square"></i> View certificate</span></span>
+      </button>
+      <button type="button" class="cert-card" onclick="openCert('claude-platform-101.pdf','Claude Platform 101')">
+        <i class="fas fa-award"></i>
+        <span><span class="cert-name">Claude Platform 101</span><span class="cert-issuer">Anthropic Academy</span><span class="cert-view"><i class="fas fa-up-right-from-square"></i> View certificate</span></span>
+      </button>
+      <button type="button" class="cert-card" onclick="openCert('claude-with-anthropic-API.pdf','Claude with the Anthropic API')">
+        <i class="fas fa-award"></i>
+        <span><span class="cert-name">Claude with the Anthropic API</span><span class="cert-issuer">Anthropic Academy</span><span class="cert-view"><i class="fas fa-up-right-from-square"></i> View certificate</span></span>
+      </button>
+      <button type="button" class="cert-card" onclick="openCert('claude-code-101.pdf','Claude Code 101')">
+        <i class="fas fa-award"></i>
+        <span><span class="cert-name">Claude Code 101</span><span class="cert-issuer">Anthropic Academy</span><span class="cert-view"><i class="fas fa-up-right-from-square"></i> View certificate</span></span>
+      </button>
+      <button type="button" class="cert-card" onclick="openCert('claude-code-in-action.pdf','Claude Code in Action')">
+        <i class="fas fa-award"></i>
+        <span><span class="cert-name">Claude Code in Action</span><span class="cert-issuer">Anthropic Academy</span><span class="cert-view"><i class="fas fa-up-right-from-square"></i> View certificate</span></span>
+      </button>
+      <button type="button" class="cert-card" onclick="openCert('introduction-to-MCP.pdf','Introduction to Model Context Protocol')">
+        <i class="fas fa-award"></i>
+        <span><span class="cert-name">Introduction to Model Context Protocol</span><span class="cert-issuer">Anthropic Academy</span><span class="cert-view"><i class="fas fa-up-right-from-square"></i> View certificate</span></span>
+      </button>
+      <button type="button" class="cert-card" onclick="openCert('MCP-advanced-topics.pdf','MCP: Advanced Topics')">
+        <i class="fas fa-award"></i>
+        <span><span class="cert-name">MCP: Advanced Topics</span><span class="cert-issuer">Anthropic Academy</span><span class="cert-view"><i class="fas fa-up-right-from-square"></i> View certificate</span></span>
+      </button>
+      <button type="button" class="cert-card" onclick="openCert('introduction-to-agent-skills.pdf','Introduction to Agent Skills')">
+        <i class="fas fa-award"></i>
+        <span><span class="cert-name">Introduction to Agent Skills</span><span class="cert-issuer">Anthropic Academy</span><span class="cert-view"><i class="fas fa-up-right-from-square"></i> View certificate</span></span>
+      </button>
+      <div class="cert-card pending">
+        <i class="fas fa-hourglass-half"></i>
+        <span><span class="cert-name">Claude Certified Developer — Foundations</span><span class="cert-issuer">Anthropic</span><span class="cert-tag">Exam scheduled — Sept 2026</span></span>
       </div>
     </div>
   </section>
 
   <div class="section-divider"></div>
 
- <section id="experience" data-aos="fade-up">
-  <h2><i class="fas fa-briefcase"></i> Experience</h2>
-  <div class="timeline">
-    <!-- Most recent (Aug-Oct 2025) -->
-    <div class="timeline-item left">
-      <div class="timeline-content" onclick="toggleDetails(this)">
-        <div class="timeline-date">Aug–Oct 2025</div>
-        <h3>Tecwise</h3>
-        <p><strong>Junior Developer (Part-Time)</strong></p>
-        <p class="timeline-summary">Contributed to the development of a multi-tenant Electronic Dealer Portal built on a Frappe-based ERPNext system.</p>
-        <div class="timeline-expand-hint"><i class="fas fa-chevron-down"></i> Click to expand</div>
-        <div class="timeline-details">
-          <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Centurion, South Africa</p>
-          <p>Worked closely with senior engineers to enhance both backend and frontend functionality, using Python, JavaScript, and HTML to deliver stable, user-friendly solutions aligned with business workflows.</p>
-          <p><strong>Key contributions:</strong></p>
-          <ul>
-            <li>Implementing backend logic and frontend updates to improve usability and performance</li>
-            <li>Supporting modular, reusable code design to ensure scalability across multiple tenants</li>
-            <li>Assisting in restoring and refining legacy features, ensuring compatibility with modern systems</li>
-            <li>Collaborating in an Agile development environment, using tools such as Git and Visual Studio Code to track progress and maintain code quality</li>
-          </ul>
+  <section id="education" data-aos="fade-up">
+    <h2><i class="fas fa-graduation-cap"></i> Education</h2>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-icon"><i class="fas fa-university"></i></div>
+        <h3>BSc Information Technology</h3>
+        <p class="edu-inst">North-West University</p>
+        <p class="edu-dates">2022 – 2025 &middot; Potchefstroom</p>
+        <p class="edu-desc">Three-year degree covering software development, databases, systems analysis &amp; design, computer networks, and software project management.</p>
+        <div class="tag-row">
+          <span class="tag">Software Development</span>
+          <span class="tag">Databases &amp; SQL</span>
+          <span class="tag">Systems Analysis</span>
+          <span class="tag">Networks</span>
+          <span class="tag">Project Management</span>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-icon"><i class="fas fa-school"></i></div>
+        <h3>National Senior Certificate</h3>
+        <p class="edu-inst">Leeuwenhof Academy</p>
+        <p class="edu-dates">2017 – 2021 &middot; Independent Examinations Board (IEB)</p>
+        <p class="edu-desc">IEB matric with a Bachelor's-degree pass (university exemption).</p>
+        <div class="tag-row">
+          <span class="tag">IEB</span>
+          <span class="tag">Bachelor's Pass</span>
         </div>
       </div>
     </div>
 
-    <!-- Jan-Feb 2023 -->
-    <div class="timeline-item right">
-      <div class="timeline-content" onclick="toggleDetails(this)">
-        <div class="timeline-date">Jan–Feb 2023</div>
-        <h3>Ackermans Pharmacy</h3>
-        <p><strong>Part-time Teller</strong></p>
-        <p class="timeline-summary">Demonstrated reliability and flexibility by working both full-day and night shifts.</p>
-        <div class="timeline-expand-hint"><i class="fas fa-chevron-down"></i> Click to expand</div>
-        <div class="timeline-details">
-          <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Primrose, South Africa</p>
-          <ul>
-            <li>Demonstrated reliability and flexibility by working both full-day and night shifts, often stepping in when extra coverage was needed</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <h3 class="subheading"><i class="fas fa-language"></i> Languages</h3>
+    <ul class="lang-list">
+      <li><i class="fas fa-check"></i> Afrikaans — Native</li>
+      <li><i class="fas fa-check"></i> English — Advanced</li>
+    </ul>
+  </section>
 
-    <!-- Dec 2022-Jan 2023 -->
-    <div class="timeline-item left">
-      <div class="timeline-content" onclick="toggleDetails(this)">
-        <div class="timeline-date">Dec 2022–Jan 2023</div>
-        <h3>Premium Ideas</h3>
-        <p><strong>Data Entry Clerk</strong></p>
-        <p class="timeline-summary">Collaborated with a small team to transition from an outdated system to a new operational workflow.</p>
-        <div class="timeline-expand-hint"><i class="fas fa-chevron-down"></i> Click to expand</div>
-        <div class="timeline-details">
-          <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Midrand, South Africa</p>
-          <ul>
-            <li>Collaborated with a small team to transition from an outdated system to a new operational workflow, completing the changeover significantly ahead of schedule</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+  <div class="section-divider"></div>
 
-    <!-- Nov-Dec 2022 -->
-    <div class="timeline-item right">
-      <div class="timeline-content" onclick="toggleDetails(this)">
-        <div class="timeline-date">Nov–Dec 2022</div>
-        <h3>Ackermans Pharmacy</h3>
-        <p><strong>Pharmacy Assistant</strong></p>
-        <p class="timeline-summary">Assisted with the relocation and organization of stock to a new business location.</p>
-        <div class="timeline-expand-hint"><i class="fas fa-chevron-down"></i> Click to expand</div>
-        <div class="timeline-details">
-          <p class="timeline-location"><i class="fas fa-map-marker-alt"></i> Primrose, South Africa</p>
-          <ul>
-            <li>Assisted with the relocation and organization of stock to a new business location, ensuring minimal disruption to daily operations</li>
-            <li>Supported inventory intake and stock management by efficiently receiving and sorting incoming shipments</li>
-          </ul>
-        </div>
+  <section id="strengths" data-aos="fade-up">
+    <h2><i class="fas fa-star"></i> Strengths</h2>
+    <div class="strengths-grid">
+      <div class="strength-card">
+        <div class="strength-icon"><i class="fas fa-chart-line"></i></div>
+        <h3>Analytical Thinking</h3>
+        <p>Breaks down complex systems methodically to reach clear, actionable insights.</p>
+      </div>
+      <div class="strength-card">
+        <div class="strength-icon"><i class="fas fa-lightbulb"></i></div>
+        <h3>Problem-Solving</h3>
+        <p>Resourceful and solution-focused when tackling technical or business challenges.</p>
+      </div>
+      <div class="strength-card">
+        <div class="strength-icon"><i class="fas fa-bullseye"></i></div>
+        <h3>Attention to Detail</h3>
+        <p>Delivers clean, reliable work with consistent focus on accuracy.</p>
+      </div>
+      <div class="strength-card">
+        <div class="strength-icon"><i class="fas fa-sitemap"></i></div>
+        <h3>Systems Thinking</h3>
+        <p>Strong architectural analysis and a clear view of how components interact.</p>
+      </div>
+      <div class="strength-card">
+        <div class="strength-icon"><i class="fas fa-rocket"></i></div>
+        <h3>Fast Learner</h3>
+        <p>Quickly picks up new tools, frameworks, and technologies.</p>
+      </div>
+      <div class="strength-card">
+        <div class="strength-icon"><i class="fas fa-people-group"></i></div>
+        <h3>Team Collaboration</h3>
+        <p>Works effectively with both technical and business stakeholders.</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <div class="section-divider"></div>
 
@@ -950,12 +1413,12 @@
     <h2><i class="fas fa-envelope"></i> Contact</h2>
     <p>Reach out to me through the platforms below:</p>
     <div class="social">
-      <a href="mailto:willem.smit222@gmail.com?subject=Contacting%20You%20Via%20Your%20Portfolio&body=Hi%20Willem%2C%0D%0A%0D%0AI%20visited%20your%20portfolio%20and%20would%20like%20to%20connect.%0D%0A%0D%0ABest%20regards%2C%0D%0A">willem.smit222@gmail.com</a>
+      <a href="mailto:willem.smith222@gmail.com?subject=Contacting%20You%20Via%20Your%20Portfolio&body=Hi%20Willem%2C%0D%0A%0D%0AI%20visited%20your%20portfolio%20and%20would%20like%20to%20connect.%0D%0A%0D%0ABest%20regards%2C%0D%0A">willem.smith222@gmail.com</a>
       <a href="https://linkedin.com/in/willem-s-smith" target="_blank">LinkedIn</a>
       <a href="https://github.com/Willem-21" target="_blank">GitHub</a>
     </div>
     <div style="text-align: center; margin-top: 1.5rem;">
-      <a href="https://github.com/Willem-21/Virtual-CV/raw/main/WillemSmithCV.pdf" class="button" download="WillemSmithCV.pdf">
+      <a href="WillemSmithCV.pdf" class="button" download="WillemSmithCV.pdf">
         <i class="fas fa-download"></i> Download CV
       </a>
     </div>
@@ -964,12 +1427,27 @@
   <!-- Footer -->
   <footer>
     <div class="footer-links">
-      <a href="mailto:willem.smit222@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+      <a href="mailto:willem.smith222@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
       <a href="https://linkedin.com/in/willem-s-smith" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
       <a href="https://github.com/Willem-21" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
     </div>
     <p>&copy; <span id="footerYear"></span> Willem Smith. All rights reserved.</p>
   </footer>
+
+  <!-- Certificate modal -->
+  <div class="cert-modal" id="certModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="certModalTitle">
+    <div class="cert-modal-backdrop" onclick="closeCert()"></div>
+    <div class="cert-modal-inner">
+      <div class="cert-modal-head">
+        <h3 id="certModalTitle">Certificate</h3>
+        <button type="button" class="cert-modal-close" onclick="closeCert()" aria-label="Close">&times;</button>
+      </div>
+      <iframe class="cert-frame" id="certFrame" title="Certificate preview"></iframe>
+      <div class="cert-fallback">
+        Can't see it? <a id="certFallbackLink" href="#" target="_blank" rel="noopener">Open the PDF in a new tab</a>
+      </div>
+    </div>
+  </div>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
@@ -1088,11 +1566,12 @@
     // Back to top + dynamic page title on scroll
     const sectionNames = {
       'about': 'About',
-      'education': 'Education',
-      'skills': 'Skills',
-      'strengths': 'Strengths',
-      'projects': 'Projects',
       'experience': 'Experience',
+      'skills': 'Skills',
+      'projects': 'Projects',
+      'certifications': 'Certifications',
+      'education': 'Education',
+      'strengths': 'Strengths',
       'contact': 'Contact'
     };
     const baseTitle = 'Willem Smith | Portfolio';
@@ -1140,7 +1619,7 @@
 
     // Typed text animation — types once on page load
     (function() {
-      const text = 'Full-Stack Developer  |  BSc IT Graduate — NWU 2025  |  Johannesburg, South Africa';
+      const text = 'Full-Stack Developer  |  Enterprise Systems & AI-Driven Engineering  |  Johannesburg, South Africa';
       const el = document.getElementById('typedText');
       const cursor = document.querySelector('.typed-cursor');
       let i = 0;
@@ -1174,6 +1653,35 @@
         hint.innerHTML = '<i class="fas fa-chevron-up"></i> Click to collapse';
       }
     }
+
+    // Certificate modal
+    const certModal = document.getElementById('certModal');
+    const certFrame = document.getElementById('certFrame');
+    const certFallbackLink = document.getElementById('certFallbackLink');
+    const certModalTitle = document.getElementById('certModalTitle');
+
+    function openCert(file, title) {
+      const url = 'certificates/' + file;
+      certModalTitle.textContent = title.replace(/&amp;/g, '&');
+      certFrame.src = url + '#toolbar=0&navpanes=0&view=Fit';
+      certFallbackLink.href = url;
+      certModal.classList.add('open');
+      certModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCert() {
+      certModal.classList.remove('open');
+      certModal.setAttribute('aria-hidden', 'true');
+      certFrame.src = '';
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && certModal.classList.contains('open')) {
+        closeCert();
+      }
+    });
   </script>
 </body>
 </html>

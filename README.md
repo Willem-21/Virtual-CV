@@ -1,24 +1,27 @@
 # Virtual-CV
-**Live Demo** [willemsmith.co.za] (https://willemsmith.co.za)
-*A fully responsive, interactive portfolio showcasing my skills, projects, and experience.* 
+
+**Live:** [willemsmith.co.za](https://willemsmith.co.za)
+
+A fully responsive, interactive single-page portfolio showcasing my skills, projects, and experience.
 
 ## Features
 - Responsive design for both mobile and desktop
-- Hosted on github pages using a custom domain name
-- Dynamic content built with React.js and Node.js
-- Modern UI with clean design CSS animations
-
-**Interactive Elements**
-- Dark/lights toggel
-- Hamburger/floating menu bar
+- Served as a static site on a custom domain
+- Animated particle background, scroll animations, and typed hero text
+- Dark / light theme toggle
+- Hamburger / slide-in menu on mobile
+- Expandable experience timeline
+- Downloadable CV (`WillemSmithCV.pdf`)
 
 ## Technologies
-- Frontend: HTML, CSS, React
-- Backend: Node.js
-- Tools: Github, VS Code
+- HTML, CSS, vanilla JavaScript
+- [particles.js](https://vincentgarreau.com/particles.js/), [AOS](https://michalsnik.github.io/aos/), Font Awesome
+- Tools: GitHub, VS Code
 
-## Setup  
+## Run locally
 ```bash
 git clone https://github.com/Willem-21/Virtual-CV.git
-npm install
-npm start
+cd Virtual-CV
+python -m http.server 8000
+# open http://localhost:8000
+```
