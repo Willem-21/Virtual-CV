@@ -26,7 +26,7 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2358a6ff'/%3E%3Ctext x='50' y='68' font-family='Arial,sans-serif' font-size='50' font-weight='bold' fill='white' text-anchor='middle'%3EWS%3C/text%3E%3C/svg%3E">
   <title>Willem Smith | Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
@@ -899,8 +899,9 @@
         padding: 2rem 1rem;
       }
       .toggle-button {
-        padding: 0.3rem 0.6rem;
+        padding: 0.55rem 0.9rem;
         font-size: 0.8rem;
+        min-height: 40px;
       }
       .skills-container,
       .cert-grid,
@@ -967,7 +968,7 @@
   </div>
 
   <div id="particles-js"></div>
-  <button class="toggle-button" onclick="toggleMode()">Toggle Theme</button>
+  <button class="toggle-button" id="themeToggle" type="button" onclick="toggleMode()">Toggle Theme</button>
   <nav>
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
@@ -1449,28 +1450,141 @@
     </div>
   </div>
 
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
 
   <!-- Vercel Analytics & Speed Insights -->
   <script defer src="/_vercel/insights/script.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
 
   <script>
-    // Dynamic footer year
-    document.getElementById('footerYear').textContent = new Date().getFullYear();
+    // ---- Core UI — defined first so a failed CDN can never disable it ----
 
-    // Preloader
-    window.addEventListener('load', function() {
-      const preloader = document.getElementById('preloader');
-      preloader.classList.add('hidden');
-      setTimeout(() => preloader.remove(), 500);
+    function toggleMode() {
+      const isLight = document.body.classList.toggle('light-mode');
+      try { localStorage.setItem('ws-theme', isLight ? 'light' : 'dark'); } catch (e) {}
+    }
+    try {
+      if (localStorage.getItem('ws-theme') === 'light') document.body.classList.add('light-mode');
+    } catch (e) {}
+
+    function toggleMenu() {
+      const nav = document.querySelector('nav');
+      const hamburger = document.querySelector('.hamburger');
+      if (!nav || !hamburger) return;
+      nav.classList.toggle('active');
+      hamburger.classList.toggle('active');
+      document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+    }
+
+    function toggleDetails(card) {
+      const details = card.querySelector('.timeline-details');
+      const hint = card.querySelector('.timeline-expand-hint');
+      const isExpanded = details.classList.contains('expanded');
+      document.querySelectorAll('.timeline-details.expanded').forEach(function (d) {
+        d.classList.remove('expanded');
+        d.closest('.timeline-content').querySelector('.timeline-expand-hint').innerHTML =
+          '<i class="fas fa-chevron-down"></i> Click to expand';
+      });
+      if (!isExpanded) {
+        details.classList.add('expanded');
+        hint.innerHTML = '<i class="fas fa-chevron-up"></i> Click to collapse';
+      }
+    }
+
+    function openCert(file, title) {
+      const modal = document.getElementById('certModal');
+      const url = 'certificates/' + file;
+      document.getElementById('certModalTitle').textContent = title.replace(/&amp;/g, '&');
+      document.getElementById('certFrame').src = url + '#toolbar=0&navpanes=0&view=Fit';
+      document.getElementById('certFallbackLink').href = url;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCert() {
+      const modal = document.getElementById('certModal');
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.getElementById('certFrame').src = '';
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function (e) {
+      const modal = document.getElementById('certModal');
+      if (e.key === 'Escape' && modal && modal.classList.contains('open')) closeCert();
     });
 
-    AOS.init({ duration: 1000, once: true });
+    // Close the mobile menu when a nav link is tapped
+    document.querySelectorAll('nav a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        const nav = document.querySelector('nav');
+        const hamburger = document.querySelector('.hamburger');
+        if (nav) nav.classList.remove('active');
+        if (hamburger) hamburger.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
 
-    // Enhanced particles initialization
-    particlesJS('particles-js', {
+    // Footer year
+    try { document.getElementById('footerYear').textContent = new Date().getFullYear(); } catch (e) {}
+
+    // Preloader — hide on load, with a hard fallback so it can never trap taps
+    (function () {
+      function hide() {
+        const p = document.getElementById('preloader');
+        if (!p) return;
+        p.classList.add('hidden');
+        setTimeout(function () { if (p.parentNode) p.parentNode.removeChild(p); }, 500);
+      }
+      window.addEventListener('load', hide);
+      setTimeout(hide, 4000);
+    })();
+
+    // Back-to-top button + section-aware page title
+    (function () {
+      const sectionNames = {
+        about: 'About', experience: 'Experience', skills: 'Skills', projects: 'Projects',
+        certifications: 'Certifications', education: 'Education', strengths: 'Strengths', contact: 'Contact'
+      };
+      const baseTitle = 'Willem Smith | Portfolio';
+      window.addEventListener('scroll', function () {
+        const button = document.getElementById('backToTop');
+        const scrollPos = document.body.scrollTop || document.documentElement.scrollTop;
+        if (button) button.style.display = scrollPos > 300 ? 'block' : 'none';
+        let current = '';
+        Object.keys(sectionNames).forEach(function (id) {
+          const el = document.getElementById(id);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= 200 && rect.bottom > 200) current = id;
+          }
+        });
+        document.title = current ? sectionNames[current] + ' — ' + baseTitle : baseTitle;
+      });
+    })();
+
+    // Typed hero text
+    (function () {
+      const text = 'Full-Stack Developer  |  Enterprise Systems & AI-Driven Engineering  |  Johannesburg, South Africa';
+      const el = document.getElementById('typedText');
+      const cursor = document.querySelector('.typed-cursor');
+      if (!el) return;
+      let i = 0;
+      (function type() {
+        if (i < text.length) {
+          el.textContent += text.charAt(i++);
+          setTimeout(type, 35);
+        } else if (cursor) {
+          cursor.classList.add('done');
+        }
+      })();
+    })();
+
+    // ---- Optional visual enhancements (safe to fail) ----
+    try { if (window.AOS) AOS.init({ duration: 1000, once: true }); } catch (e) {}
+
+    try {
+    if (window.particlesJS) particlesJS('particles-js', {
       "particles": {
         "number": {
           "value": 100,
@@ -1557,131 +1671,8 @@
         }
       },
       "retina_detect": true
-    });
-
-    function toggleMode() {
-      document.body.classList.toggle('light-mode');
-    }
-
-    // Back to top + dynamic page title on scroll
-    const sectionNames = {
-      'about': 'About',
-      'experience': 'Experience',
-      'skills': 'Skills',
-      'projects': 'Projects',
-      'certifications': 'Certifications',
-      'education': 'Education',
-      'strengths': 'Strengths',
-      'contact': 'Contact'
-    };
-    const baseTitle = 'Willem Smith | Portfolio';
-
-    window.onscroll = function () {
-      const button = document.getElementById("backToTop");
-      const scrollPos = document.body.scrollTop || document.documentElement.scrollTop;
-
-      if (scrollPos > 300) {
-        button.style.display = "block";
-      } else {
-        button.style.display = "none";
-      }
-
-      // Update page title based on current section
-      let currentSection = '';
-      for (const id of Object.keys(sectionNames)) {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 200 && rect.bottom > 200) {
-            currentSection = id;
-          }
-        }
-      }
-      document.title = currentSection ? `${sectionNames[currentSection]} — ${baseTitle}` : baseTitle;
-    }
-
-    function toggleMenu() {
-      const nav = document.querySelector('nav');
-      const hamburger = document.querySelector('.hamburger');
-      nav.classList.toggle('active');
-      hamburger.classList.toggle('active');
-      document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
-    }
-
-    // Close menu when clicking a nav link
-    document.querySelectorAll('nav a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.querySelector('nav').classList.remove('active');
-        document.querySelector('.hamburger').classList.remove('active');
-        document.body.style.overflow = '';
       });
-    });
-
-    // Typed text animation — types once on page load
-    (function() {
-      const text = 'Full-Stack Developer  |  Enterprise Systems & AI-Driven Engineering  |  Johannesburg, South Africa';
-      const el = document.getElementById('typedText');
-      const cursor = document.querySelector('.typed-cursor');
-      let i = 0;
-
-      function type() {
-        if (i < text.length) {
-          el.textContent += text.charAt(i);
-          i++;
-          setTimeout(type, 35);
-        } else {
-          cursor.classList.add('done');
-        }
-      }
-      type();
-    })();
-
-    // Expandable experience cards
-    function toggleDetails(card) {
-      const details = card.querySelector('.timeline-details');
-      const hint = card.querySelector('.timeline-expand-hint');
-      const isExpanded = details.classList.contains('expanded');
-
-      // Close all others first
-      document.querySelectorAll('.timeline-details.expanded').forEach(d => {
-        d.classList.remove('expanded');
-        d.closest('.timeline-content').querySelector('.timeline-expand-hint').innerHTML = '<i class="fas fa-chevron-down"></i> Click to expand';
-      });
-
-      if (!isExpanded) {
-        details.classList.add('expanded');
-        hint.innerHTML = '<i class="fas fa-chevron-up"></i> Click to collapse';
-      }
-    }
-
-    // Certificate modal
-    const certModal = document.getElementById('certModal');
-    const certFrame = document.getElementById('certFrame');
-    const certFallbackLink = document.getElementById('certFallbackLink');
-    const certModalTitle = document.getElementById('certModalTitle');
-
-    function openCert(file, title) {
-      const url = 'certificates/' + file;
-      certModalTitle.textContent = title.replace(/&amp;/g, '&');
-      certFrame.src = url + '#toolbar=0&navpanes=0&view=Fit';
-      certFallbackLink.href = url;
-      certModal.classList.add('open');
-      certModal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeCert() {
-      certModal.classList.remove('open');
-      certModal.setAttribute('aria-hidden', 'true');
-      certFrame.src = '';
-      document.body.style.overflow = '';
-    }
-
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && certModal.classList.contains('open')) {
-        closeCert();
-      }
-    });
+    } catch (e) {}
   </script>
 </body>
 </html>
